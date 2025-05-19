@@ -1,10 +1,10 @@
 import abc
-from abc import abstractclassmethod, abstractmethod
+from GameObject import GameObject
 
+class Entity(abc.ABC, GameObject):
 
-class Entity(abc.ABC):
-
-    def __init__(self, max_health, armor):
+    def __init__(self, max_health, armor, position=(0,0), image_path=None):
+        super().__init__(position, image_path)
         self._max_health = max_health
         self._current_health = max_health
         self._armor = armor

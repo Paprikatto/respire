@@ -1,8 +1,8 @@
 from Entity import Entity
 class Enemy(Entity):
     """Class representing an enemy in the game."""
-    def __init__(self, name, max_health, armor):
-        super().__init__(max_health, armor)
+    def __init__(self, name, max_health, armor, position=(0,0), image_path=None):
+        super().__init__(max_health, armor, position=position, image_path=image_path)
         self._name = name
 
     @property

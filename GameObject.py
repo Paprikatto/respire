@@ -6,6 +6,7 @@ class GameObject:
         self._children = []
         self._parent = None
         self._image = None
+        self.position = position
         if image_path:
             self._image = pygame.image.load(image_path)
             
@@ -18,7 +19,7 @@ class GameObject:
         if isinstance(value, list) or isinstance(value, tuple):
             if len(value) != 2:
                 raise ValueError("Position must be a list or tuple of length 2")
-            value = Vector2(value)
+            self._position = Vector2(value)
         elif isinstance(value, Vector2):
             self._position = value
         else:
