@@ -1,7 +1,7 @@
 import pygame
 from pygame.math import Vector2
 class GameObject:
-    def __init__(self, position, image_path=None):
+    def __init__(self, position=(0,0), image_path=None):
         self.position = position
         self._children = []
         self._parent = None
@@ -15,9 +15,14 @@ class GameObject:
 
     @position.setter
     def position(self, value):
-        if not isinstance(value, Vector2) or len(value) != 2:
-            raise ValueError("Position must be a pygame.math.Vector2")
-        self._position = value
+        if isinstance(value, list) or isinstance(value, tuple):
+            if len(value) != 2:
+                raise ValueError("Position must be a list or tuple of length 2")
+            value = Vector2(value)
+        elif isinstance(value, Vector2):
+            self._position = value
+        else:
+            raise ValueError("Position must be a list, tuple or Vector2")
         
     @property
     def image(self):
