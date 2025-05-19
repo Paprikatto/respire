@@ -1,11 +1,30 @@
-# Example file showing a basic pygame "game loop"
 import pygame
 
-# pygame setup
+from Enemy import Enemy
+from Player import Player
+from Scene import Scene
+
+#ta funkcja będzie usunięta ale na razie testuję
+def setup_scene():
+    """Set up the initial game scene."""
+    # Initialize the scene
+    scene = Scene()
+
+    # Create game objects
+    player = Player("Player", 100, 10, position=(100, 100))
+    enemy = Enemy("Goblin", 50, 5, position=(300, 100), image_path="Sprites/werewolf-idle1.png")
+
+    # Add objects to the scene
+    scene.add_object(player)
+    scene.add_object(enemy)
+
+    return scene
+
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
+scene1 = setup_scene()
 
 while running:
     # poll for events
@@ -18,7 +37,7 @@ while running:
     screen.fill("purple")
 
     # RENDER YOUR GAME HERE
-
+    scene1.render(screen)
     # flip() the display to put your work on screen
     pygame.display.flip()
 
