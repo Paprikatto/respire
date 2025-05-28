@@ -1,28 +1,29 @@
 import pygame
-
+from BattleScene import BattleScene
 from Enemy import Enemy
 from Player import Player
 from Scene import Scene
+import globals
+
 
 #ta funkcja będzie usunięta ale na razie testuję
 def setup_scene():
     """Set up the initial game scene."""
     # Initialize the scene
-    scene = Scene()
-
-    # Create game objects
-    player = Player("Player", 100, 10, position=(100, 100))
-    player.scale = (5, 5)  # Scale the player object
-    enemy = Enemy("Goblin", 50, 5, position=(300, 100), image_path="Sprites/werewolf-idle1.png")
-
-    # Add objects to the scene
-    scene.add_object(player)
-    scene.add_object(enemy)
+    player = Player("Player", 100, 10)
+    player.scale = (5, 5)  
+    enemy = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
+    enemy2 = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
+    enemy3 = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
+    enemy.scale = (5, 5)  
+    enemy2.scale = (5, 5)  
+    enemy3.scale = (5, 5)  
+    scene = BattleScene(player, [enemy, enemy2, enemy3])
 
     return scene
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 clock = pygame.time.Clock()
 running = True
 scene1 = setup_scene()
