@@ -12,6 +12,7 @@ def setup_scene():
 
     # Create game objects
     player = Player("Player", 100, 10, position=(100, 100))
+    player.scale = (5, 5)  # Scale the player object
     enemy = Enemy("Goblin", 50, 5, position=(300, 100), image_path="Sprites/werewolf-idle1.png")
 
     # Add objects to the scene
