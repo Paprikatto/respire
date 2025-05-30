@@ -4,6 +4,8 @@ from Enemy import Enemy
 from Player import Player
 import globals
 
+from Scene import Scene
+from Button import Button
 
 #ta funkcja będzie usunięta ale na razie testuję
 def setup_scene():
@@ -23,6 +25,7 @@ def setup_scene():
 
 pygame.init()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
+pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
 running = True
 scene1 = setup_scene()
