@@ -2,7 +2,6 @@ import pygame
 from BattleScene import BattleScene
 from Enemy import Enemy
 from Player import Player
-from Scene import Scene
 import globals
 
 
