@@ -4,7 +4,6 @@ from Enemy import Enemy
 from Player import Player
 import globals
 
-from Scene import Scene
 from Button import Button
 
 #ta funkcja będzie usunięta ale na razie testuję
@@ -40,6 +39,7 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
+    globals.mouse_position = pygame.mouse.get_pos()
     # RENDER YOUR GAME HERE
     scene1.render(screen)
     # flip() the display to put your work on screen

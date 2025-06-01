@@ -8,6 +8,7 @@ class Scene:
     def render(self, screen):
         for game_object in self._game_objects:
             game_object.render(screen)
+            game_object.update()
             
     def add_object(self, game_object):
         if not isinstance(game_object, GameObject):

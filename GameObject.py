@@ -1,7 +1,7 @@
-from tkinter.tix import IMAGE
-
 import pygame
+import globals
 from pygame.math import Vector2
+
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, position=(0,0), image_path=None):
         super().__init__()
@@ -12,7 +12,10 @@ class GameObject(pygame.sprite.Sprite):
         self._image = None
         self.position = position
         self._scale = Vector2(1, 1)  # Default scale
-        self.original_size = (0,0)
+        self.original_size = (0,0) # used for scaling
+        # if true, GameObject reacts on mouse hover
+        self.check_hover = False
+        self.colliding = False
         if image_path:
             self.image = image_path
             
@@ -28,8 +31,6 @@ class GameObject(pygame.sprite.Sprite):
             self._position = Vector2(value)
         elif isinstance(value, Vector2):
             self._position = value
-        else:
-            raise ValueError("Position must be a list, tuple or Vector2")
         if self.rect is not None:
             self.rect.center = int(self.global_position[0]), int(self.global_position[1]) 
         
@@ -43,8 +44,6 @@ class GameObject(pygame.sprite.Sprite):
             self._image = pygame.image.load(path)
         elif isinstance(path, pygame.Surface):
             self._image = path
-        else:
-            raise ValueError("Image path must be a string")
         self.original_size = self._image.get_size()
         self.rect = self._image.get_rect()
         self.rect.center = int(self.global_position[0]), int(self.global_position[1])
@@ -58,8 +57,6 @@ class GameObject(pygame.sprite.Sprite):
         return self._children
     
     def add_child(self, child: 'GameObject'):
-        if not isinstance(child, GameObject):
-            raise ValueError("Child must be a GameObject")
         self._children.append(child)
         child._parent = self
     
@@ -89,7 +86,30 @@ class GameObject(pygame.sprite.Sprite):
             self._scale = value
         else:
             raise ValueError("Scale must be a list, tuple or Vector2")
-        if self.rect is not None:
+        if self.rect is not None and self.image is not None:
             self.image = pygame.transform.scale(self.image, (self.original_size[0] * self._scale.x, self.original_size[1] * self._scale.y))
             self.rect.center = int(self.global_position[0]), int(self.global_position[1])
         
+
+    def check_collision(self, position):
+        if self.rect is None:
+            return False
+        else:
+            return self.rect.collidepoint(position)
+
+
+    def update(self):
+        # check if collides with mouse
+        if self.check_hover:
+            coll = self.check_collision(globals.mouse_position)
+            if coll and not self.colliding:
+                self.on_hover_enter()
+            elif not coll and self.colliding:
+                self.on_hover_exit()
+            self.colliding = coll
+
+    def on_hover_enter(self):
+        pass
+
+    def on_hover_exit(self):
+        pass
