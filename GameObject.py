@@ -115,7 +115,8 @@ class GameObject(pygame.sprite.Sprite):
             self.colliding = coll
 
     def on_hover_enter(self):
-        globals.hovered_item = self
+        if self._on_click:
+            globals.hovered_item = self
 
     def on_hover_exit(self):
         if globals.hovered_item == self:
