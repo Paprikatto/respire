@@ -2,6 +2,7 @@ import pygame
 from BattleScene import BattleScene
 from Enemy import Enemy
 from Player import Player
+from Text import Text
 import globals
 
 from Button import Button
@@ -19,6 +20,10 @@ def setup_scene():
     enemy2.scale = (5, 5)  
     enemy3.scale = (5, 5)  
     scene = BattleScene(player, [enemy, enemy2, enemy3])
+    # Add button
+    button = Button((100, 100), 50, 200, background_color=(0, 255, 0), button_text="Attack", font_size=20, font_color=(0, 0, 0), font_path="Fonts/Minecraft.ttf")
+    scene.add_object(button)
+
 
     return scene
 

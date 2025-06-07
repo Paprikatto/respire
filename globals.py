@@ -3,3 +3,4 @@ HEIGHT = 720
 player = None
 deck = None
 mouse_position = (0,0)
+main_font = None
