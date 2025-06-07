@@ -1,6 +1,7 @@
 import pygame
 from BattleScene import BattleScene
 from Enemy import Enemy
+from MainMenu import MainMenu
 from Player import Player
 from Text import Text
 import globals
@@ -8,8 +9,7 @@ import globals
 from Button import Button
 
 #ta funkcja będzie usunięta ale na razie testuję
-def setup_scene():
-    """Set up the initial game scene."""
+"""def setup_scene():
     # Initialize the scene
     player = Player("Player", 100, 10)
     player.scale = (5, 5)  
@@ -25,6 +25,12 @@ def setup_scene():
     scene.add_object(button)
 
 
+    return scene """
+
+#Sprawdzam czy main menu działa
+def setup_scene():
+    # Initialize the scene
+    scene = MainMenu()
     return scene
 
 pygame.init()
@@ -32,6 +38,7 @@ screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
 running = True
+
 scene1 = setup_scene()
 
 while running:

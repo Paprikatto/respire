@@ -1,13 +1,10 @@
-
 import pygame
 from GameObject import GameObject
 from Text import Text
-"""Klasa Button dziedziczy po GameObject i reprezentuje przycisk w grze.
-   Przyjmuje pozycję, wysokość, szerokość i kolor tła jako argumenty.
-   Do dodania do przycisku klasa Text, aby wyświetlić tekst na przycisku"""
+
 class Button(GameObject):
-    def __init__(self, position, height, width, background_color=(0,0,255), button_text=None, font_size=30, font_color=(255, 255, 255), font_path=None):
-        super().__init__(position)
+    def __init__(self, position, height, width, background_color=(0,0,255), button_text=None, font_size=30, font_color=(255, 255, 255), font_path=None, image_path=None):
+        super().__init__(position, image_path=image_path)
         self._height = height
         self._width = width
         self._background_color = background_color
@@ -18,16 +15,17 @@ class Button(GameObject):
             self._width,
             self._height
         )
+        self.rect.center = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
         self.text = Text(self._position, button_text, font_size, font_color, font_path) if button_text else None
-        self.text.position = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
+        if self.text:
+            self.text.position = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
 
     def render(self, screen):
-        # self.rect.position = self.position
-        pygame.draw.rect(screen, self._background_color, self.rect)
+        if self._image:
+            # Wyśrodkuj obrazek w prostokącie przycisku
+            image_rect = self._image.get_rect(center=self.rect.center)
+            screen.blit(self._image, image_rect)
+        else:
+            pygame.draw.rect(screen, self._background_color, self.rect)
         if self.text:
             self.text.render(screen)
-
-
-
-
-
