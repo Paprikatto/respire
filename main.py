@@ -47,6 +47,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if globals.hovered_item is not None:
+                    globals.hovered_item.click()
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
