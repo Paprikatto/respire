@@ -3,12 +3,13 @@ from GameObject import GameObject
 from Text import Text
 
 class Button(GameObject):
-    def __init__(self, position, height, width, background_color=(0,0,255), button_text=None, font_size=30, font_color=(255, 255, 255), font_path=None, image_path=None):
-        super().__init__(position, image_path=image_path)
+    def __init__(self, position, height, width, background_color=(0,0,255), button_text=None, font_size=30, font_color=(255, 255, 255), font_path=None, image_path=None, on_click=None):
+        super().__init__(position, image_path=image_path, on_click=on_click)
         self._height = height
         self._width = width
         self._background_color = background_color
         self._position = position
+        self.check_hover = True
         self.rect = pygame.Rect(
             self._position[0],
             self._position[1],

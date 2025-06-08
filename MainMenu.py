@@ -1,15 +1,8 @@
-import sys
 from Scene import Scene
 from Button import Button
 from GameObject import GameObject
 import globals
 import pygame
-
-
-def quit_game():
-    pygame.quit()
-    sys.exit()
-
 
 class MainMenu(Scene):
     def __init__(self):
@@ -30,7 +23,8 @@ class MainMenu(Scene):
             button_text="Start Game",
             font_size=30,
             font_color=(255, 255, 255),
-            font_path="Fonts/Minecraft.ttf"
+            font_path="Fonts/Minecraft.ttf",
+            on_click=self.start_game
         )
         self.quit_button = Button(
             position=(globals.WIDTH // 2 - 100, globals.HEIGHT // 2 + 50),
@@ -40,9 +34,16 @@ class MainMenu(Scene):
             button_text="Quit Game",
             font_size=30,
             font_color=(255, 255, 255),
-            font_path="Fonts/Minecraft.ttf"
+            font_path="Fonts/Minecraft.ttf",
+            on_click= self.quit_game
         )
         self.add_object(self.background)
         self.add_object(self.title)
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
+
+    def start_game(self):
+        print("start")
+
+    def quit_game(self):
+        pygame.quit()
