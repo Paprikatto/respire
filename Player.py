@@ -1,10 +1,10 @@
 from Entity import Entity
+from Text import Text
 class Player(Entity):
     """Class representing a player in the game."""
     def __init__(self, name, max_health, armor, position=(0,0)):
-        super().__init__(max_health, armor, position=position, image_path="Sprites/Player/player.png")
+        super().__init__(max_health, armor, position=position, image_path="Sprites/Player/player.png", name="Player")
         self._idle_frame = 0
-        self._name = name
         self.check_hover = True
         self._animation_list = {
             "idle": ["Sprites/Player/Idle/idle-with-weapon-1.png", "Sprites/Player/Idle/idle-with-weapon-2.png", "Sprites/Player/Idle/idle-with-weapon-3.png", "Sprites/Player/Idle/idle-with-weapon-4.png", "Sprites/Player/Idle/idle-with-weapon-5.png", "Sprites/Player/Idle/idle-with-weapon-6.png"],
@@ -49,3 +49,13 @@ class Player(Entity):
         self._current_frame = 0
         self.image = self._idle_animation[self._current_frame]
         self.scale = (5, 5)
+
+    def create_hp_bar(self):
+        hp_bar = Text(
+            text=f"{self._name} HP: {self._current_health}/{self.max_health}",
+            position=(self.position[0], self.position[1] - 150),
+            font_size=20,
+            color=(255, 255, 255),
+            font_name="Fonts/Minecraft.ttf"
+        )
+        super().add_child(hp_bar)

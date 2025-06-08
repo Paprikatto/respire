@@ -2,8 +2,12 @@ from Scene import Scene
 from Button import Button
 from GameObject import GameObject
 from Player import Player
+from enemies import *
 import globals
 import pygame
+
+from enemies import SkeletonSword
+
 
 class MainMenu(Scene):
     def __init__(self):
@@ -52,8 +56,9 @@ class MainMenu(Scene):
         from Enemy import Enemy
         import globals
         player = Player("Player", 100, 10)
-        enemy = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
-        globals.current_scene = BattleScene(player, [enemy])
+        enemy = SkeletonSword()
+        enemy2 = SkeletonShield()
+        globals.current_scene = BattleScene(player, [enemy, enemy2])
 
     @staticmethod
     def quit_game():

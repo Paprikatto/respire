@@ -1,4 +1,3 @@
-# Tu bedzie klasa Text
 import pygame
 from GameObject import GameObject
 
@@ -12,6 +11,7 @@ class Text(GameObject):
         self._font = pygame.font.Font(self._font_name, self._font_size)
         self.image = self._font.render(self._text, True, self._color)
         self.rect = self.image.get_rect()
+        self.rect.center = position
 
     @property
     def text(self):

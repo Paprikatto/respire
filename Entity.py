@@ -1,13 +1,15 @@
 import abc
 from GameObject import GameObject
+from Text import Text
 
 class Entity(abc.ABC, GameObject):
 
-    def __init__(self, max_health, armor, position=(0,0), image_path=None):
+    def __init__(self, max_health, armor, position=(0,0), image_path=None, name="Entity"):
         super().__init__(position, image_path)
         self._max_health = max_health
         self._current_health = max_health
         self._armor = armor
+        self._name = name
 
     def lose_health(self, value):
         if value < 0:

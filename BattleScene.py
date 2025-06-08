@@ -7,8 +7,10 @@ class BattleScene(Scene):
         super().__init__()
         self.add_object(player)
         player.position = (globals.WIDTH // 4, globals.HEIGHT // 2)
+        player.create_hp_bar()
         if len(enemies) > 3:
             raise ValueError("Maximum of 3 enemies allowed")
         for i, enemy in enumerate(enemies):
             enemy.position = self.ENEMY_POSITIONS[i]
             self.add_object(enemy)
+            enemy.create_hp_bar()
