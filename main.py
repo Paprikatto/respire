@@ -59,6 +59,7 @@ while running:
 
     globals.mouse_position = pygame.mouse.get_pos()
     # RENDER YOUR GAME HERE
+    scene1.update()
     scene1.render(screen)
     # flip() the display to put your work on screen
     pygame.display.flip()

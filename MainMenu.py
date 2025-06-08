@@ -1,6 +1,7 @@
 from Scene import Scene
 from Button import Button
 from GameObject import GameObject
+from Player import Player
 import globals
 import pygame
 
@@ -37,13 +38,22 @@ class MainMenu(Scene):
             font_path="Fonts/Minecraft.ttf",
             on_click= self.quit_game
         )
+        self.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
         self.add_object(self.background)
         self.add_object(self.title)
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
+        self.add_object(self.player)
 
-    def start_game(self):
+    @staticmethod
+    def start_game():
         print("start")
 
-    def quit_game(self):
+    @staticmethod
+    def quit_game():
         pygame.quit()
+
+    def update(self):
+        for obj in self._game_objects:
+            if hasattr(obj, "update"):
+                obj.update()

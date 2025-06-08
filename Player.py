@@ -2,9 +2,19 @@ from Entity import Entity
 class Player(Entity):
     """Class representing a player in the game."""
     def __init__(self, name, max_health, armor, position=(0,0)):
-        super().__init__(max_health, armor, position=position, image_path="Sprites/werewolf-idle1.png")
+        super().__init__(max_health, armor, position=position, image_path="Sprites/Player/player.png")
+        self._idle_frame = 0
         self._name = name
         self.check_hover = True
+        self._animation_list = {
+            "idle": ["Sprites/Player/Idle/idle-with-weapon-1.png", "Sprites/Player/Idle/idle-with-weapon-2.png", "Sprites/Player/Idle/idle-with-weapon-3.png", "Sprites/Player/Idle/idle-with-weapon-4.png", "Sprites/Player/Idle/idle-with-weapon-5.png", "Sprites/Player/Idle/idle-with-weapon-6.png"],
+            "walk": ["Sprites/Player/player_walk_1.png", "Sprites/Player/player_walk_2.png"],
+            "attack": ["Sprites/Player/player_attack_1.png", "Sprites/Player/player_attack_2.png"]
+        }
+        self._idle_animation = self._animation_list["idle"]
+        self.scale = (5, 5)
+        self._current_frame = 0
+        self._is_idle = True
 
     @property
     def name(self):
@@ -21,3 +31,22 @@ class Player(Entity):
 
     def on_hover_exit(self):
         print("player hover exit")
+
+
+    def update(self):
+        if self._is_idle:
+            self._current_frame += 0.01  # Adjust the speed of the animation here
+            if self._current_frame >= len(self._animation_list["idle"]):
+                self._current_frame = 0
+            self.image = self._idle_animation[int(self._current_frame)]
+            self.scale = (5, 5)
+
+
+    def animate(self):
+        self._is_idle = True
+
+    def stop_animation(self):
+        self._is_idle = False
+        self._current_frame = 0
+        self.image = self._idle_animation[self._current_frame]
+        self.scale = (5, 5)

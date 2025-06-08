@@ -23,7 +23,6 @@ class Button(GameObject):
 
     def render(self, screen):
         if self._image:
-            # Wyśrodkuj obrazek w prostokącie przycisku
             image_rect = self._image.get_rect(center=self.rect.center)
             screen.blit(self._image, image_rect)
         else:
