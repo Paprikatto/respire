@@ -1,8 +1,15 @@
+import sys
 from Scene import Scene
 from Button import Button
 from GameObject import GameObject
 import globals
 import pygame
+
+
+def quit_game():
+    pygame.quit()
+    sys.exit()
+
 
 class MainMenu(Scene):
     def __init__(self):
@@ -12,7 +19,7 @@ class MainMenu(Scene):
             position=(0, 0),
             height=globals.HEIGHT,
             width=globals.WIDTH,
-            background_color=self.background_color
+            image_path="Sprites/respire_background.png"
         )
         self.title = GameObject(image_path="Sprites/respire_logo.png", position=(globals.WIDTH // 2, globals.HEIGHT // 4))
         self.start_button = Button(
