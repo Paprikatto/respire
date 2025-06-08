@@ -1,12 +1,10 @@
-from Deck import Deck
-from GameObject import GameObject
-from Player import Player
+import interfaces
 
 
 WIDTH = 1280
 HEIGHT = 720
-player: Player | None = None
-deck = Deck()
+player = None
+deck = None
 mouse_position = (0,0)
 main_font = None
-hovered_item: GameObject | None = None
+hovered_item: interfaces.Clickable | None = None
