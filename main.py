@@ -1,5 +1,6 @@
 import pygame
 from BattleScene import BattleScene
+from Deck import Deck
 from Enemy import Enemy
 from MainMenu import MainMenu
 from Player import Player
@@ -34,6 +35,7 @@ def setup_scene():
     return scene
 
 pygame.init()
+globals.deck = Deck()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()

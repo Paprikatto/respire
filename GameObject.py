@@ -1,9 +1,10 @@
+from typing import Callable
 import pygame
 import globals
 from pygame.math import Vector2
 
 class GameObject(pygame.sprite.Sprite):
-    def __init__(self, position=(0,0), image_path=None, on_click = None):
+    def __init__(self, position=(0,0), image_path=None, on_click: Callable | None = None):
         super().__init__()
         self.rect = None
         self.position = position
@@ -18,13 +19,8 @@ class GameObject(pygame.sprite.Sprite):
         self.colliding = False
         if image_path:
             self.image = image_path
+        self._on_click = on_click
             
-        if on_click is not None:
-            if not callable(on_click):
-                raise TypeError("on_click is not callable")
-            else:
-                self._on_click = on_click
-
     @property
     def position(self):
         return self._position

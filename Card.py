@@ -4,6 +4,7 @@ class Card:
         self.actions = actions
         self.energy_cost = energy_cost
         self.use_on_player = use_on_player
+        self.hand_index = -1
     
     @property
     def actions(self):

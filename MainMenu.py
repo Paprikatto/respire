@@ -34,7 +34,8 @@ class MainMenu(Scene):
             button_text="Quit Game",
             font_size=30,
             font_color=(255, 255, 255),
-            font_path="Fonts/Minecraft.ttf"
+            font_path="Fonts/Minecraft.ttf",
+            on_click= self.quit_game
         )
         self.add_object(self.background)
         self.add_object(self.title)
@@ -43,3 +44,6 @@ class MainMenu(Scene):
 
     def start_game(self):
         print("start")
+
+    def quit_game(self):
+        pygame.quit()
