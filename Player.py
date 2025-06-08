@@ -8,8 +8,6 @@ class Player(Entity):
         self.check_hover = True
         self._animation_list = {
             "idle": ["Sprites/Player/Idle/idle-with-weapon-1.png", "Sprites/Player/Idle/idle-with-weapon-2.png", "Sprites/Player/Idle/idle-with-weapon-3.png", "Sprites/Player/Idle/idle-with-weapon-4.png", "Sprites/Player/Idle/idle-with-weapon-5.png", "Sprites/Player/Idle/idle-with-weapon-6.png"],
-            "walk": ["Sprites/Player/player_walk_1.png", "Sprites/Player/player_walk_2.png"],
-            "attack": ["Sprites/Player/player_attack_1.png", "Sprites/Player/player_attack_2.png"]
         }
         self._idle_animation = self._animation_list["idle"]
         self.scale = (5, 5)
@@ -34,6 +32,7 @@ class Player(Entity):
 
 
     def update(self):
+        super().update()
         if self._is_idle:
             self._current_frame += 0.01  # Adjust the speed of the animation here
             if self._current_frame >= len(self._animation_list["idle"]):

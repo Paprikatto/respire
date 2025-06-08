@@ -34,15 +34,6 @@ def setup_scene():
     scene = MainMenu()
     return scene
 
-def start_game():
-    from BattleScene import BattleScene
-    from Player import Player
-    from Enemy import Enemy
-    import globals
-    player = Player("Player", 100, 10)
-    enemy = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
-    globals.current_scene = BattleScene(player, [enemy])
-
 pygame.init()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
