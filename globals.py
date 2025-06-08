@@ -6,7 +6,7 @@ from Player import Player
 WIDTH = 1280
 HEIGHT = 720
 player: Player | None = None
-deck: Deck | None = None
+deck = Deck()
 mouse_position = (0,0)
 main_font = None
 hovered_item: GameObject | None = None
