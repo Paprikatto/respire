@@ -6,7 +6,8 @@ import random
 class Deck:
     def __init__(self) -> None:
         self._deck = self.generate_starting_cards()
-        self._hand = self.draw(5)
+        self._hand = []
+        self.draw(5)
         self.card_index_update()
         self._used_cards = []
 
@@ -36,13 +37,14 @@ class Deck:
         cards.append(Card({"shield_player": 5}, 2, True))
         return cards
 
-    def draw(self, amount) -> List:
+    def draw(self, amount):
         drawn = []
         for _ in range(amount):
             card_index = random.randint(0, len(self._deck) - 1)
             drawn.append(self._deck.pop(card_index))
-        return drawn
+        self._hand += drawn
 
     def used(self, index):
         self._used_cards = self._deck.pop(index)
-        self._hand += self.draw(1)
+        self.draw(1)
+        self.card_index_update()
