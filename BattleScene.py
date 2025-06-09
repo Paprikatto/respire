@@ -14,3 +14,8 @@ class BattleScene(Scene):
             enemy.position = self.ENEMY_POSITIONS[i]
             self.add_object(enemy)
             enemy.create_hp_bar()
+
+    def render(self, screen):
+        super().render(screen)
+        if globals.deck is not None:
+            globals.deck.render(screen)

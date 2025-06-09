@@ -8,12 +8,8 @@ class Deck:
         self._deck = self.generate_starting_cards()
         self._hand = []
         self.draw(5)
-        self.card_index_update()
         self._used_cards = []
 
-    def card_index_update(self):
-        for i, card in enumerate(self._hand):
-            card.hand_index = i
 
     def generate_starting_cards(self) -> List:
         cards = []
@@ -37,14 +33,30 @@ class Deck:
         cards.append(Card({"shield_player": 5}, 2, True))
         return cards
 
+    #draw {amount} cards from deck to hand
     def draw(self, amount):
         drawn = []
         for _ in range(amount):
             card_index = random.randint(0, len(self._deck) - 1)
             drawn.append(self._deck.pop(card_index))
         self._hand += drawn
+        self.card_index_update()
 
+    #give every card in hand an index
+    def card_index_update(self):
+        self._hand[0].verbose = True
+        hand_size = len(self._hand)
+        for i, card in enumerate(self._hand):
+            card.hand_index = i
+            card.hand_size = hand_size
+
+    #invoked in card class to delete certain card from hand and put it to used cards
     def used(self, index):
-        self._used_cards = self._deck.pop(index)
+        self._used_cards = self._hand.pop(index)
         self.draw(1)
         self.card_index_update()
+    
+    def render(self, screen):
+        for card in self._hand:
+            card.render(screen)
+            card.update()

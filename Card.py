@@ -1,10 +1,22 @@
 import globals
-class Card:
-    def __init__(self, actions, energy_cost, use_on_player):
-        self.actions = actions
+from GameObject import GameObject
+from pygame.math import Vector2
+class Card(GameObject):
+    ANIM_SPEED = 3
+    HAND_WIDTH = round(globals.WIDTH * 0.5)
+    DECK_POSITION = Vector2(-50, globals.HEIGHT - 50)
+    USED_POSITION =  Vector2(globals.WIDTH + 50, globals.HEIGHT - 50)
+    def __init__(self, actions, energy_cost, use_on_player, verbose = False):
+        super().__init__(image_path="Sprites/card-template.png")
+        self.verbose = verbose
+        self.global_position = Card.DECK_POSITION
+        self.visible = True
+        self.actions = actions 
         self.energy_cost = energy_cost
         self.use_on_player = use_on_player
-        self.hand_index = -1
+        self._target_position = (0,0)
+        self.hand_index = -1 #-1 to deck, -2 to zużyta karta
+        self.hand_size = 5
     
     @property
     def actions(self):
@@ -36,6 +48,35 @@ class Card:
             raise ValueError("Use on player must be a boolean")
         self._use_on_player = value
         
+    @property
+    def hand_index(self):
+        return self._hand_index
+
+    @hand_index.setter
+    def hand_index(self, value: int):
+        match value:
+            case -2:
+                self._target_position = Card.USED_POSITION
+            case -1:
+                self._target_position = Card.DECK_POSITION
+            case _:
+                card_gap = Card.HAND_WIDTH // self.hand_size
+                self._target_position = Vector2((value - 1) * card_gap + globals.WIDTH // 3, globals.HEIGHT - 50)
+
+        self._hand_index = value
+
+    def update(self):
+        super().update()
+        if self.verbose:
+            print(self.global_position)
+            print(self._target_position)
+        if Vector2.distance_to(self.global_position, self._target_position) > Card.ANIM_SPEED * 2:
+            move_vec = self._target_position - self.global_position
+            move_vec = move_vec.normalize()
+            move_vec *= Card.ANIM_SPEED
+            # self.global_position += move_vec
+            self.global_position = self.global_position + move_vec
+
     def use(self, target):
         for action in self.actions.keys():
             match action:
@@ -57,4 +98,5 @@ class Card:
                     globals.deck.upgrade_hand(self.actions[action])
                 case _:
                     raise ValueError(f"Unknown action: {action}")
-        globals.deck.used(self.hand_index)
+        if globals.deck is not None:
+            globals.deck.used(self.hand_index)

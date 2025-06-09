@@ -6,6 +6,8 @@ from MainMenu import MainMenu
 from Player import Player
 from Text import Text
 import globals
+import warnings
+warnings.filterwarnings("ignore")
 
 from Button import Button
 
@@ -35,6 +37,7 @@ def setup_scene():
     return scene
 
 pygame.init()
+globals.deck = Deck()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
