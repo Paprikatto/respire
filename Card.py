@@ -5,7 +5,7 @@ from pygame.math import Vector2
 class Card(GameObject):
     ANIM_SPEED = 6
     HAND_WIDTH = round(globals.WIDTH * 0.5)
-    DECK_POSITION = Vector2(-50, globals.HEIGHT - 100)
+    DECK_POSITION = Vector2(-150, globals.HEIGHT - 100)
     USED_POSITION =  Vector2(globals.WIDTH + 50, globals.HEIGHT - 100)
     HOVER_Y_OFFSET = 20
     def __init__(self, actions, energy_cost, use_on_player, verbose = False):
@@ -117,7 +117,11 @@ class Card(GameObject):
         self.use(None)
 
     def on_hover_enter(self):
+        super().on_hover_enter()
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
         
     def on_hover_exit(self):
+        if globals.hovered_item != self:
+            return
+        super().on_hover_exit()
         self._target_position += Vector2(0, Card.HOVER_Y_OFFSET)

@@ -124,14 +124,17 @@ class GameObject(pygame.sprite.Sprite):
         # check if collides with mouse
         if self.check_hover:
             coll = self.check_collision(globals.mouse_position)
-            if coll and not self.colliding:
-                self.on_hover_enter()
+            if coll:
+                if not self.colliding or globals.hovered_item is None:
+                    self.on_hover_enter()
             elif not coll and self.colliding:
                 self.on_hover_exit()
             self.colliding = coll
 
     def on_hover_enter(self):
         if self._on_click:
+            if globals.hovered_item is not None and globals.hovered_item != self:
+                globals.hovered_item.on_hover_exit()
             globals.hovered_item = self
 
     def on_hover_exit(self):
