@@ -44,7 +44,7 @@ class Deck:
 
     #give every card in hand an index
     def card_index_update(self):
-        self._hand[0].verbose = True
+        # self._hand[0].verbose = True
         hand_size = len(self._hand)
         for i, card in enumerate(self._hand):
             card.hand_index = i
