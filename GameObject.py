@@ -143,5 +143,6 @@ class GameObject(pygame.sprite.Sprite):
             return
         if callable(self._on_click):
             self._on_click()
+            print(f"Clicked on {self.__class__.__name__} at {self.global_position}")
         else:
             raise TypeError("on_click is not callable")

@@ -1,16 +1,17 @@
 import globals
+import utils
 from GameObject import GameObject
 from pygame.math import Vector2
 class Card(GameObject):
-    ANIM_SPEED = 15
+    ANIM_SPEED = 6
     HAND_WIDTH = round(globals.WIDTH * 0.5)
     DECK_POSITION = Vector2(-50, globals.HEIGHT - 100)
     USED_POSITION =  Vector2(globals.WIDTH + 50, globals.HEIGHT - 100)
+    HOVER_Y_OFFSET = 20
     def __init__(self, actions, energy_cost, use_on_player, verbose = False):
         super().__init__(image_path="Sprites/card-template.png")
         self.scale = (3, 3)  # Scale the card image
         self.verbose = verbose
-        self.check_hover = True
         self.visible = True
         self.actions = actions 
         self.energy_cost = energy_cost
@@ -18,6 +19,7 @@ class Card(GameObject):
         self._target_position = (0,0)
         self.hand_index = -1 #-1 to deck, -2 to zużyta karta
         self.hand_size = 5
+        self.animation_speed = 1
         self._on_click = self.on_click
     
     @property
@@ -73,10 +75,13 @@ class Card(GameObject):
         if self.verbose:
             print(self.global_position)
             print(self._target_position)
-        if Vector2.distance_to(self.global_position, self._target_position) > Card.ANIM_SPEED:
+        dist = Vector2.distance_to(self.global_position, self._target_position)
+        self.check_hover = dist < Card.ANIM_SPEED
+        if not self.check_hover:
+            dist = utils.clamp(dist, 60, 240) / 60
             move_vec = self._target_position - self.global_position
             move_vec = move_vec.normalize()
-            move_vec *= Card.ANIM_SPEED
+            move_vec *= Card.ANIM_SPEED * self.animation_speed * dist
             # self.global_position += move_vec
             self.global_position = self.global_position + move_vec
         else:
@@ -110,3 +115,9 @@ class Card(GameObject):
             
     def on_click(self):
         self.use(None)
+
+    def on_hover_enter(self):
+        self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
+        
+    def on_hover_exit(self):
+        self._target_position += Vector2(0, Card.HOVER_Y_OFFSET)

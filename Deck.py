@@ -3,35 +3,35 @@ from Card import Card
 import random
 
 
+def generate_starting_cards() -> List:
+    cards = []
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 2, True))
+    return cards
+
+
 class Deck:
     def __init__(self) -> None:
-        self._deck = self.generate_starting_cards()
+        self._deck = generate_starting_cards()
         self._hand = []
         self.draw(5)
         self._used_cards = []
-
-
-    def generate_starting_cards(self) -> List:
-        cards = []
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"damage": 5}, 2, False))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        cards.append(Card({"shield_player": 5}, 2, True))
-        return cards
 
     #draw {amount} cards from deck to hand
     def draw(self, amount):

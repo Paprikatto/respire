@@ -1,3 +1,5 @@
+from networkx.classes import selfloop_edges
+
 from Scene import Scene
 from Button import Button
 from GameObject import GameObject
@@ -49,8 +51,7 @@ class MainMenu(Scene):
         self.add_object(self.quit_button)
         self.add_object(self.player)
 
-    @staticmethod
-    def start_game():
+    def start_game(self):
         from BattleScene import BattleScene
         from Player import Player
         from Enemy import Enemy
@@ -59,6 +60,8 @@ class MainMenu(Scene):
         enemy = SkeletonSword()
         enemy2 = SkeletonShield()
         globals.current_scene = BattleScene(player, [enemy, enemy2])
+        if globals.hovered_item == self.start_button:
+            globals.hovered_item = None
 
     @staticmethod
     def quit_game():
