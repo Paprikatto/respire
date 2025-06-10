@@ -84,8 +84,6 @@ class GameObject(pygame.sprite.Sprite):
         child._parent = self
 
             
-
-            
     def render(self, screen):
         if not self.visible:
             return

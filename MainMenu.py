@@ -60,6 +60,7 @@ class MainMenu(Scene):
         if not hasattr(globals, "enemies") or globals.enemies is None:
             globals.enemies = [SkeletonSword(), SkeletonShield()]
         globals.current_scene = BattleScene(globals.player, globals.enemies)
+        globals.player.lose_health(30)
 
     @staticmethod
     def quit_game():

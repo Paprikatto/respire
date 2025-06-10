@@ -13,6 +13,7 @@ class Player(Entity):
         self.scale = (5, 5)
         self._current_frame = 0
         self._is_idle = True
+        self.hp_bar = None
 
     @property
     def name(self):
@@ -44,11 +45,21 @@ class Player(Entity):
         self._is_idle = True
 
     def create_hp_bar(self):
-        hp_bar = Text(
-            text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-            position=(self.position[0], self.position[1] - 150),
-            font_size=20,
-            color=(255, 255, 255),
-            font_name="Fonts/Minecraft.ttf"
-        )
-        super().add_child(hp_bar)
+        if self.hp_bar is None:
+            self.hp_bar = Text(
+                text=f"{self._name} HP: {self._current_health}/{self.max_health}",
+                position=(self.position[0], self.position[1] - 150),
+                font_size=20,
+                color=(255, 255, 255),
+                font_name="Fonts/Minecraft.ttf"
+            )
+            super().add_child(self.hp_bar)
+        else:
+            self.update_hp_bar()
+
+    def update_hp_bar(self):
+        self.hp_bar.text = f"{self._name} HP: {self._current_health}/{self.max_health}"
+
+    def lose_health(self, value):
+        super().lose_health(value)
+        self.update_hp_bar()
