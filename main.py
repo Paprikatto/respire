@@ -54,17 +54,26 @@ while running:
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                if hasattr(globals.hovered_item, "click"):
-                    globals.hovered_item.click()
+                if hasattr(globals.current_scene.hovered_item, "click"):
+                    globals.current_scene.hovered_item.click()
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
     globals.mouse_position = pygame.mouse.get_pos()
     # RENDER YOUR GAME HERE
-    if hasattr(globals.current_scene, "update"):
-        globals.current_scene.update()
     globals.current_scene.render(screen)
+    
+    if globals.current_scene.hovered_item is not None:
+        if globals.current_scene.prev_hovered_item != globals.current_scene.hovered_item:
+            if globals.current_scene.prev_hovered_item is not None:
+                globals.current_scene.prev_hovered_item.on_hover_exit()
+            globals.current_scene.hovered_item.on_hover_enter()
+    else:
+        if globals.current_scene.prev_hovered_item is not None:
+            globals.current_scene.prev_hovered_item.on_hover_exit()
+
+    globals.current_scene.prev_hovered_item = globals.current_scene.hovered_item
     # flip() the display to put your work on screen
     pygame.display.flip()
 

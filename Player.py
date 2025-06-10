@@ -25,9 +25,11 @@ class Player(Entity):
         self._name = value
 
     def on_hover_enter(self):
+        super().on_hover_enter()
         print("player hover enter")
 
     def on_hover_exit(self):
+        super().on_hover_exit()
         print("player hover exit")
 
 

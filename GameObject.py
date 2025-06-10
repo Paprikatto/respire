@@ -17,7 +17,6 @@ class GameObject(pygame.sprite.Sprite):
         self.original_size = (0,0) # used for scaling
         # if true, GameObject reacts on mouse hover
         self.check_hover = False
-        self.colliding = False
         if image_path:
             self.image = image_path
         self._on_click = on_click
@@ -89,10 +88,10 @@ class GameObject(pygame.sprite.Sprite):
     def render(self, screen):
         if not self.visible:
             return
-        if self.rect is not None:
-            screen.blit(self._image, self.rect)
         for child in self._children:
             child.render(screen)
+        if self.rect is not None:
+            screen.blit(self._image, self.rect)
     
     @property
     def scale(self):
@@ -125,21 +124,12 @@ class GameObject(pygame.sprite.Sprite):
         if self.check_hover:
             coll = self.check_collision(globals.mouse_position)
             if coll:
-                if not self.colliding or globals.hovered_item is None:
-                    self.on_hover_enter()
-            elif not coll and self.colliding:
-                self.on_hover_exit()
-            self.colliding = coll
+                globals.current_scene.hovered_item = self
 
     def on_hover_enter(self):
-        if self._on_click:
-            if globals.hovered_item is not None and globals.hovered_item != self:
-                globals.hovered_item.on_hover_exit()
-            globals.hovered_item = self
-
+        pass
     def on_hover_exit(self):
-        if globals.hovered_item == self:
-            globals.hovered_item = None
+        pass
 
     def click(self):
         if self._on_click is None:

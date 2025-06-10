@@ -60,14 +60,7 @@ class MainMenu(Scene):
         enemy = SkeletonSword()
         enemy2 = SkeletonShield()
         globals.current_scene = BattleScene(player, [enemy, enemy2])
-        if globals.hovered_item == self.start_button:
-            globals.hovered_item = None
 
     @staticmethod
     def quit_game():
         pygame.quit()
-
-    def update(self):
-        for obj in self._game_objects:
-            if hasattr(obj, "update"):
-                obj.update()

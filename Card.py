@@ -121,7 +121,5 @@ class Card(GameObject):
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
         
     def on_hover_exit(self):
-        if globals.hovered_item != self:
-            return
         super().on_hover_exit()
         self._target_position += Vector2(0, Card.HOVER_Y_OFFSET)
