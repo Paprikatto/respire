@@ -6,10 +6,11 @@ from pygame.math import Vector2
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, position=(0,0), image_path=None, on_click: Callable | None = None):
         super().__init__()
+        self.visible: bool = True 
         self.rect = None
         self.position = position
         self._children = []
-        self._parent = None
+        self._parent: GameObject | None = None
         self._image = None
         self.position = position
         self._scale = Vector2(1, 1)  # Default scale
@@ -37,6 +38,26 @@ class GameObject(pygame.sprite.Sprite):
             self.rect.center = int(self.global_position[0]), int(self.global_position[1]) 
         
     @property
+    def global_position(self):
+        if self._parent:
+            return self._parent.global_position + self.position
+        return self.position
+
+    @global_position.setter
+    def global_position(self, value: Vector2 | list | tuple):
+        if hasattr(self, 'verbose'):
+            if self.verbose:
+                print(f"Setting global position: {value}")
+        if not isinstance(value, Vector2):
+            if len(value) != 2:
+                raise ValueError("Position list must be of length 2")
+            value = Vector2(value)
+        if self.parent is None:
+            self.position = value
+        else:
+            self.position = Vector2(value.x - self.parent.global_position.x, value.y - self.parent.global_position.y)
+
+    @property
     def image(self):
         return self._image
     
@@ -61,14 +82,13 @@ class GameObject(pygame.sprite.Sprite):
     def add_child(self, child: 'GameObject'):
         self._children.append(child)
         child._parent = self
-    
-    @property
-    def global_position(self):
-        if self._parent:
-            return self._parent.global_position + self.position
-        return self.position
+
+            
+
             
     def render(self, screen):
+        if not self.visible:
+            return
         if self.rect is not None:
             screen.blit(self._image, self.rect)
         for child in self._children:
@@ -123,5 +143,6 @@ class GameObject(pygame.sprite.Sprite):
             return
         if callable(self._on_click):
             self._on_click()
+            print(f"Clicked on {self.__class__.__name__} at {self.global_position}")
         else:
             raise TypeError("on_click is not callable")
