@@ -20,6 +20,9 @@ class Text(GameObject):
     @text.setter
     def text(self, value):
         self._text = value
+        self.image = self._font.render(self._text, True, self._color)
+        self.rect = self.image.get_rect()
+        self.rect.center = self.position
 
     def render(self, screen):
         screen.blit(self.image, self.rect)
