@@ -52,7 +52,9 @@ class Deck:
 
     #invoked in card class to delete certain card from hand and put it to used cards
     def used(self, index):
-        self._used_cards = self._hand.pop(index)
+        c = self._hand.pop(index)
+        c.hand_index = -2
+        self._used_cards.append(c)
         self.draw(1)
         self.card_index_update()
     
@@ -60,3 +62,7 @@ class Deck:
         for card in self._hand:
             card.render(screen)
             card.update()
+        for card in self._used_cards:
+            if card.global_position != Card.USED_POSITION:
+                card.render(screen)
+                card.update()
