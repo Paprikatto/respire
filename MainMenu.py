@@ -55,10 +55,11 @@ class MainMenu(Scene):
         from Player import Player
         from Enemy import Enemy
         import globals
-        player = Player("Player", 100, 10)
-        enemy = SkeletonSword()
-        enemy2 = SkeletonShield()
-        globals.current_scene = BattleScene(player, [enemy, enemy2])
+        if globals.player is None:
+            globals.player = Player("Player", 100, 10)
+        if not hasattr(globals, "enemies") or globals.enemies is None:
+            globals.enemies = [SkeletonSword(), SkeletonShield()]
+        globals.current_scene = BattleScene(globals.player, globals.enemies)
 
     @staticmethod
     def quit_game():
