@@ -23,7 +23,7 @@ class Enemy(Entity):
         if self.hp_bar is None:
             self.hp_bar = Text(
                 text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-                position=(self.position[0]+100, self.position[1] + 220),
+                position=(self.position[0] - 20, self.position[1] - 150),
                 font_size=20,
                 color=(255, 255, 255),
                 font_name="Fonts/Minecraft.ttf"
@@ -31,6 +31,8 @@ class Enemy(Entity):
             super().add_child(self.hp_bar)
         else:
             self.update_hp_bar()
+            if self.hp_bar not in self.children:
+                super().add_child(self.hp_bar)
 
     def update_hp_bar(self):
         self.hp_bar.text = f"{self._name} HP: {self._current_health}/{self.max_health}"
