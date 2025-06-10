@@ -84,12 +84,14 @@ class GameObject(pygame.sprite.Sprite):
 
             
     def render(self, screen):
+        if self.parent is not None:
+            self.rect.center = int(self.global_position[0]), int(self.global_position[1])
         if not self.visible:
             return
-        for child in self._children:
-            child.render(screen)
         if self.rect is not None:
             screen.blit(self._image, self.rect)
+        for child in self._children:
+            child.render(screen)
     
     @property
     def scale(self):

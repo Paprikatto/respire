@@ -8,6 +8,7 @@ class Card(GameObject):
     DECK_POSITION = Vector2(-150, globals.HEIGHT - 100)
     USED_POSITION =  Vector2(globals.WIDTH + 50, globals.HEIGHT - 100)
     HOVER_Y_OFFSET = 20
+    FONT_SIZE = 18
     def __init__(self, actions, energy_cost, use_on_player, verbose = False):
         super().__init__(image_path="Sprites/card-template.png")
         self.scale = (3, 3)  # Scale the card image
@@ -21,7 +22,8 @@ class Card(GameObject):
         self.hand_size = 5
         self.animation_speed = 1
         self._on_click = self.on_click
-    
+        for t in self.generate_text():
+            self.add_child(t)
     @property
     def actions(self):
         return self._actions
@@ -123,3 +125,34 @@ class Card(GameObject):
     def on_hover_exit(self):
         super().on_hover_exit()
         self._target_position += Vector2(0, Card.HOVER_Y_OFFSET)
+    
+    def generate_text(self):
+        from Text import Text
+        str = ""
+        texts = []
+        for action, value in self.actions.items():
+            match action:
+                case "damage":
+                    str += f"Deal {value} damage\n"
+                case "shield_player":
+                    str += f"Gain {value} shield\n"
+                case "add_player_energy":
+                    str += f"Gain {value} energy\n"
+                case "damage_all":
+                    str += f"Deal {value} damage to all enemies\n"
+                case "vulnerable":
+                    str += f"Apply {value} vulnerable\n"
+                case "heal":
+                    str += f"Heal {value}\n"
+                case "draw":
+                    str += f"Draw {value} cards\n"
+                case "upgrade":
+                    str += f"Upgrade {value} cards\n"
+                case _:
+                    raise ValueError(f"Unknown action: {action}")
+        #iterate over every line in str and create a Text object for each line
+        str = str.split("\n")
+        for i, line in enumerate(str):
+            l = line.strip()
+            texts.append(Text(Vector2(0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
+        return texts

@@ -1,28 +1,38 @@
 from typing import List
+
+import globals
 from Card import Card
 import random
 
 
 def generate_starting_cards() -> List:
     cards = []
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    cards.append(Card({"damage": 5, "vulnerable": 2}, 2, False))
+    # cards.append(Card({"damage": 5}, 2, False))
+    # cards.append(Card({"damage": 5}, 2, False))
+    # cards.append(Card({"damage": 5}, 2, False))
+    # cards.append(Card({"damage": 5}, 2, False))
+    # cards.append(Card({"damage": 5}, 2, False))
+    # cards.append(Card({"vulnerable": 2}, 2, False))
+    # cards.append(Card({"vulnerable": 2}, 2, False))
+    # cards.append(Card({"vulnerable": 2}, 2, False))
+    # cards.append(Card({"vulnerable": 2}, 2, False))
+    # cards.append(Card({"vulnerable": 2}, 2, False))
+    # cards.append(Card({"shield_player": 5}, 2, True))
+    # cards.append(Card({"shield_player": 5}, 2, True))
+    # cards.append(Card({"shield_player": 5}, 2, True))
+    # cards.append(Card({"shield_player": 5}, 2, True))
+    # cards.append(Card({"shield_player": 5}, 2, True))
     return cards
 
 
@@ -66,3 +76,8 @@ class Deck:
             if card.global_position != Card.USED_POSITION:
                 card.render(screen)
                 card.update()
+        # Render hovered card second time to display it on top of others
+        if isinstance(globals.current_scene.hovered_item, Card):
+            globals.current_scene.hovered_item.render(screen)
+            
+            
