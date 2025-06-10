@@ -54,7 +54,7 @@ while running:
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                if globals.hovered_item is not None:
+                if hasattr(globals.hovered_item, "click"):
                     globals.hovered_item.click()
 
     # fill the screen with a color to wipe away anything from last frame
