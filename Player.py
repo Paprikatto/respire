@@ -31,15 +31,21 @@ class Player(Entity):
     def on_hover_exit(self):
         print("player hover exit")
 
-
     def update(self):
         super().update()
         if self._is_idle:
-            self._current_frame += 0.01  # Adjust the speed of the animation here
+            self._current_frame += 0.01
             if self._current_frame >= len(self._animation_list["idle"]):
                 self._current_frame = 0
             self.image = self._idle_animation[int(self._current_frame)]
             self.scale = (5, 5)
+        if self.hp_bar:
+            # Ustaw pozycję względem globalnej pozycji gracza
+            self.hp_bar.position = (self.global_position[0] - 20, self.global_position[1] - 150)
+            self.update_hp_bar()
+            if self.hp_bar not in self.children:
+                super().add_child(self.hp_bar)
+
 
     def animate(self):
         self._is_idle = True
@@ -48,7 +54,7 @@ class Player(Entity):
         if self.hp_bar is None:
             self.hp_bar = Text(
                 text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-                position=(self.position[0], self.position[1] - 150),
+                position=(self.position[0] - 20, self.position[1] - 150),
                 font_size=20,
                 color=(255, 255, 255),
                 font_name="Fonts/Minecraft.ttf"
@@ -56,6 +62,8 @@ class Player(Entity):
             super().add_child(self.hp_bar)
         else:
             self.update_hp_bar()
+            if self.hp_bar not in self.children:
+                super().add_child(self.hp_bar)
 
     def update_hp_bar(self):
         self.hp_bar.text = f"{self._name} HP: {self._current_health}/{self.max_health}"

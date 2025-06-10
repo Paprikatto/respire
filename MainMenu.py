@@ -42,12 +42,13 @@ class MainMenu(Scene):
             font_path="Fonts/Minecraft.ttf",
             on_click= self.quit_game
         )
-        self.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
         self.add_object(self.background)
         self.add_object(self.title)
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
-        self.add_object(self.player)
+        if globals.player is None:
+            globals.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
+        self.add_object(globals.player)
 
     @staticmethod
     def start_game():
@@ -56,11 +57,13 @@ class MainMenu(Scene):
         from Enemy import Enemy
         import globals
         if globals.player is None:
-            globals.player = Player("Player", 100, 10)
+            globals.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
+        else:
+            globals.player.position = (globals.WIDTH // 2 - 300, globals.HEIGHT // 2 - 100)
+            globals.player.create_hp_bar()
         if not hasattr(globals, "enemies") or globals.enemies is None:
             globals.enemies = [SkeletonSword(), SkeletonShield()]
         globals.current_scene = BattleScene(globals.player, globals.enemies)
-        globals.player.lose_health(30)
 
     @staticmethod
     def quit_game():
