@@ -40,15 +40,8 @@ class Player(Entity):
             self.image = self._idle_animation[int(self._current_frame)]
             self.scale = (5, 5)
 
-
     def animate(self):
         self._is_idle = True
-
-    def stop_animation(self):
-        self._is_idle = False
-        self._current_frame = 0
-        self.image = self._idle_animation[self._current_frame]
-        self.scale = (5, 5)
 
     def create_hp_bar(self):
         hp_bar = Text(

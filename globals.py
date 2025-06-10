@@ -9,3 +9,4 @@ current_scene = None
 mouse_position = (0,0)
 main_font = None
 hovered_item: interfaces.Clickable | None = None
+enemies = None
