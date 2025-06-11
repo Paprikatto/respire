@@ -18,6 +18,7 @@ class Button(GameObject):
         )
         self.rect.center = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
         self.text = Text(self._position, button_text, font_size, font_color, font_path) if button_text else None
+        self.button_text = button_text
         if self.text:
             self.text.position = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
 
