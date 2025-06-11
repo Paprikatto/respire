@@ -23,7 +23,7 @@ class Enemy(Entity):
         if self.hp_bar is None:
             self.hp_bar = Text(
                 text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-                position=(self.position[0] - 20, self.position[1] - 150),
+                position=(self.position[0] + 75, self.position[1] - 60),
                 font_size=20,
                 color=(255, 255, 255),
                 font_name="Fonts/Minecraft.ttf"
