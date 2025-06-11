@@ -14,6 +14,9 @@ class Player(Entity):
         self._current_frame = 0
         self._is_idle = True
         self.hp_bar = None
+        self.mana = 5
+        self._max_mana = 5
+        self.mana_bar = None
 
     @property
     def name(self):
@@ -71,3 +74,21 @@ class Player(Entity):
     def lose_health(self, value):
         super().lose_health(value)
         self.update_hp_bar()
+
+    def create_mana_bar(self):
+        if self.mana_bar is None:
+            self.mana_bar = Text(
+                text=f"{self._name} Mana: {self.mana}/{self._max_mana}",
+                position=(self.position[0] - 20, self.position[1] - 120),
+                font_size=20,
+                color=(0, 0, 255),
+                font_name="Fonts/Minecraft.ttf"
+            )
+            super().add_child(self.mana_bar)
+        else:
+            self.update_mana_bar()
+            if self.mana_bar not in self.children:
+                super().add_child(self.mana_bar)
+
+    def update_mana_bar(self):
+        self.mana_bar.text = f"{self._name} Mana: {self.mana}/{self._max_mana}"

@@ -1,4 +1,5 @@
 from Enemy import Enemy
+from Text import Text
 import pygame
 
 class SkeletonSword(Enemy):
@@ -33,4 +34,34 @@ class SkeletonShield(Enemy):
         self.image = pygame.transform.flip(self._image, True, False)
         self.scale = (4, 4)
 
+class Shadow(Enemy):
+    def __init__(self, position=(0, 0)):
+        super().__init__(name="Shadow", max_health=80, armor=5, position=position, image_path="Sprites/Enemies/Shadow/idle-1.png")
+        self.scale = (4, 4)
+        self._animation_list = ["Sprites/Enemies/Shadow/idle-1.png", "Sprites/Enemies/Shadow/idle-2.png", "Sprites/Enemies/Shadow/idle-3.png", "Sprites/Enemies/Shadow/idle-4.png"]
+        self._current_frame = 0
+
+    def update(self):
+        super().update()
+        self._current_frame += 0.01
+        if self._current_frame >= len(self._animation_list):
+            self._current_frame = 0
+        self.image = self._animation_list[int(self._current_frame)]
+        self.image = pygame.transform.flip(self._image, True, False)
+        self.scale = (4, 4)
+
+    def create_hp_bar(self):
+        if self.hp_bar is None:
+            self.hp_bar = Text(
+                text=f"{self._name} HP: {self._current_health}/{self.max_health}",
+                position=(self.position[0] , self.position[1] - 60),
+                font_size=20,
+                color=(255, 255, 255),
+                font_name="Fonts/Minecraft.ttf"
+            )
+            super().add_child(self.hp_bar)
+        else:
+            self.update_hp_bar()
+            if self.hp_bar not in self.children:
+                super().add_child(self.hp_bar)
 
