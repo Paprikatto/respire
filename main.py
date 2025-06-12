@@ -1,7 +1,10 @@
 import pygame
 from BattleScene import BattleScene
+from Card import Card
 from Deck import Deck
 from Enemy import Enemy
+from Entity import Entity
+from GameObject import GameObject
 from MainMenu import MainMenu
 from Player import Player
 from Text import Text
@@ -56,14 +59,23 @@ while running:
             if event.button == 1:
                 if hasattr(globals.current_scene.hovered_item, "click"):
                     globals.current_scene.hovered_item.click()
+        if event.type == pygame.MOUSEBUTTONUP:
+            if globals.pointing: #cancel card pointing
+                globals.pointing = False
+                if isinstance(globals.current_scene.hovered_item, Entity):
+                    globals.card.use(globals.current_scene.hovered_item)
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
     globals.mouse_position = pygame.mouse.get_pos()
-    # RENDER YOUR GAME HERE
+    # rendering
     globals.current_scene.render(screen)
     
+    #if pointing, draw a line from card to mouse position
+    if globals.pointing and isinstance(globals.card, Card):
+        pygame.draw.line(screen, "white", globals.card.global_position, globals.mouse_position, 2)
+    # hovering logic
     hovered = globals.current_scene.hovered_item
     prev_hovered = globals.current_scene.prev_hovered_item
     if hovered != prev_hovered:
