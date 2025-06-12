@@ -35,8 +35,8 @@ class GameObject(pygame.sprite.Sprite):
         elif isinstance(value, Vector2):
             self._position = value
         if self.rect is not None:
-            self.rect.center = int(self.global_position[0]), int(self.global_position[1]) 
-            
+            self.rect.center = int(self.global_position[0]), int(self.global_position[1])
+
     # position on screen 
     @property
     def global_position(self):
@@ -84,17 +84,18 @@ class GameObject(pygame.sprite.Sprite):
         self._children.append(child)
         child._parent = self
 
-            
     def render(self, screen):
-        if self.parent is not None:
-            self.rect.center = int(self.global_position[0]), int(self.global_position[1])
+        self.update_relative_position()
         if not self.visible:
             return
         if self.rect is not None:
             screen.blit(self._image, self.rect)
         for child in self._children:
             child.render(screen)
-    
+    def update_relative_position(self):
+        if self.parent is not None:
+            self.rect.center = int(self.global_position[0]), int(self.global_position[1])
+
     @property
     def scale(self):
         return self._scale

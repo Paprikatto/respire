@@ -2,6 +2,7 @@ import pygame
 
 import globals
 import utils
+from Button import Button
 from Entity import Entity
 from GameObject import GameObject
 from pygame.math import Vector2
@@ -27,6 +28,7 @@ class Card(GameObject):
         self._on_click = self.on_click
         for t in self.generate_text():
             self.add_child(t)
+        self.create_energy_widget()
     @property
     def actions(self):
         return self._actions
@@ -172,3 +174,10 @@ class Card(GameObject):
             l = line.strip()
             texts.append(Text(Vector2(0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
         return texts
+    def create_energy_widget(self):
+        widget = Button((0, 0), 20, 20, button_text=f"3", font_color=(255,255,0))
+        self.add_child(widget)
+        # print(0, self.image.get_height)
+        widget.position = (-self.image.get_width() // 2, -self.image.get_height() // 2)
+        print("a")
+
