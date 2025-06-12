@@ -98,7 +98,7 @@ class Player(Entity):
     def create_armor_bar(self):
         if self.armor_bar is None and self.armor > 0:
             self.armor_bar = Button(
-                position=(self.position[0] - 20, self.position[1] - 90),
+                position=(self.position[0] - 25, self.position[1] + 50),
                 height=20,
                 width=150,
                 background_color=(128, 128, 128),
@@ -109,6 +109,7 @@ class Player(Entity):
                 image_path="Sprites/armor_icon.png",
             )
             self.armor_bar.scale = (3, 3)
+            self.armor_bar.text.position = (self.armor_bar.position[0], self.armor_bar.position[1] + 5)
             super().add_child(self.armor_bar)
         else:
             self.update_armor_bar()
