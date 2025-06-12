@@ -2,7 +2,7 @@ import pygame
 from GameObject import GameObject
 
 class Text(GameObject):
-    def __init__(self, position, text, font_size=30, color=(255, 255, 255), font_name=None):
+    def __init__(self, position, text:str, font_size:int =30, color:tuple[int,int,int]=(255, 255, 255), font_name=None):
         super().__init__(position)
         self._text = text
         self._font_size = font_size
