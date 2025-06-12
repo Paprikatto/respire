@@ -1,5 +1,6 @@
 import globals
 import utils
+from Entity import Entity
 from GameObject import GameObject
 from pygame.math import Vector2
 class Card(GameObject):
@@ -89,6 +90,17 @@ class Card(GameObject):
         else:
             self.global_position = self._target_position
 
+    def use(self, target: Entity):
+        from BattleScene import BattleScene
+        # update energy text
+        if globals.player.energy < self.energy_cost:
+            return
+        else:
+            globals.player.energy -= self.energy_cost
+            if isinstance(globals.current_scene, BattleScene):
+                globals.current_scene.update_energy_text()
+        
+        # perform actions
         for action in self.actions.keys():
             if target is None:
                 break
