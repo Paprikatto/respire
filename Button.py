@@ -21,6 +21,20 @@ class Button(GameObject):
         if self.text is not None:
             self.add_child(self.text)
         self.button_text = button_text
+        
+    @property
+    def height(self):
+        return self._height
+    
+    @property
+    def width(self):
+        return self._width
+    
+    @width.setter
+    def width(self, value):
+        self._width = value
+        self.rect.width = value
+        self.rect.center = (self._position[0], self._position[1])
 
     def render(self, screen):
         if self._image:

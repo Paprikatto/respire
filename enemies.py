@@ -4,7 +4,7 @@ import pygame
 
 class SkeletonSword(Enemy):
     def __init__(self, position=(0, 0)):
-        super().__init__(name="Skeleton Sword", max_health=100, armor=10, position=position, image_path="Sprites/Enemies/SkeletonSword/idle-1.png")
+        super().__init__(name="Skeleton Sword", max_health=100, shield=10, position=position, image_path="Sprites/Enemies/SkeletonSword/idle-1.png", hp_bar_offset= (50, 110))
         self.scale = (4, 4)  # Set the scale for the skeleton sword enemy
         self._animation_list = ["Sprites/Enemies/SkeletonSword/idle-1.png", "Sprites/Enemies/SkeletonSword/idle-2.png", "Sprites/Enemies/SkeletonSword/idle-3.png", "Sprites/Enemies/SkeletonSword/idle-4.png"]
         self._current_frame = 0
@@ -20,7 +20,7 @@ class SkeletonSword(Enemy):
 
 class SkeletonShield(Enemy):
     def __init__(self, position=(0, 0)):
-        super().__init__(name="Skeleton Shield", max_health=120, armor=15, position=position, image_path="Sprites/Enemies/SkeletonShield/idle-1.png")
+        super().__init__(name="Skeleton Shield", max_health=120, shield=15, position=position, image_path="Sprites/Enemies/SkeletonShield/idle-1.png", hp_bar_offset= (50, 100))
         self.scale = (4, 4)
         self._animation_list = ["Sprites/Enemies/SkeletonShield/idle-1.png", "Sprites/Enemies/SkeletonShield/idle-2.png", "Sprites/Enemies/SkeletonShield/idle-3.png", "Sprites/Enemies/SkeletonShield/idle-4.png"]
         self._current_frame = 0
@@ -36,7 +36,7 @@ class SkeletonShield(Enemy):
 
 class Shadow(Enemy):
     def __init__(self, position=(0, 0)):
-        super().__init__(name="Shadow", max_health=80, armor=5, position=position, image_path="Sprites/Enemies/Shadow/idle-1.png")
+        super().__init__(name="Shadow", max_health=80, shield=5, position=position, image_path="Sprites/Enemies/Shadow/idle-1.png", hp_bar_offset= (0, 120))
         self.scale = (4, 4)
         self._animation_list = ["Sprites/Enemies/Shadow/idle-1.png", "Sprites/Enemies/Shadow/idle-2.png", "Sprites/Enemies/Shadow/idle-3.png", "Sprites/Enemies/Shadow/idle-4.png"]
         self._current_frame = 0
@@ -49,19 +49,3 @@ class Shadow(Enemy):
         self.image = self._animation_list[int(self._current_frame)]
         self.image = pygame.transform.flip(self._image, True, False)
         self.scale = (4, 4)
-
-    def create_hp_bar(self):
-        if self.hp_bar is None:
-            self.hp_bar = Text(
-                text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-                position=(self.position[0] , self.position[1] - 60),
-                font_size=20,
-                color=(255, 255, 255),
-                font_name="Fonts/Minecraft.ttf"
-            )
-            super().add_child(self.hp_bar)
-        else:
-            self.update_hp_bar()
-            if self.hp_bar not in self.children:
-                super().add_child(self.hp_bar)
-

@@ -3,8 +3,8 @@ from Text import Text
 from Button import Button
 class Player(Entity):
     """Class representing a player in the game."""
-    def __init__(self, name, max_health, armor, position=(0,0)):
-        super().__init__(max_health, armor, position=position, image_path="Sprites/Player/player.png", name="Player")
+    def __init__(self, name, max_health, shield, position=(0, 0)):
+        super().__init__(max_health, shield, position=position, image_path="Sprites/Player/player.png", name="Player")
         self._idle_frame = 0
         self.check_hover = True
         self._animation_list = {
@@ -21,7 +21,6 @@ class Player(Entity):
         self.armor_bar = None
         self.vulnerability = 5
         self.vulnerability_bar = None
-        self.create_hp_bar()
         self.create_armor_bar()
         self.create_vulnerability_bar()
 
@@ -62,36 +61,17 @@ class Player(Entity):
     def animate(self):
         self._is_idle = True
 
-    def create_hp_bar(self):
-        if self.hp_bar is None:
-            self.hp_bar = Text(
-                text=f"{self._name} HP: {self._current_health}/{self.max_health}",
-                position=(self.position[0] - 20, self.position[1] - 150),
-                font_size=20,
-                color=(255, 255, 255),
-                font_name="Fonts/Minecraft.ttf"
-            )
-            super().add_child(self.hp_bar)
-        else:
-            self.update_hp_bar()
-            if self.hp_bar not in self.children:
-                super().add_child(self.hp_bar)
-
-    def update_hp_bar(self):
-        self.hp_bar.text = f"{self._name} HP: {self._current_health}/{self.max_health}"
-
     def lose_health(self, value):
         super().lose_health(value)
-        self.update_hp_bar()
 
     def create_armor_bar(self):
-        if self.armor_bar is None and self.armor > 0:
+        if self.armor_bar is None and self.shield > 0:
             self.armor_bar = Button(
                 position=(self.position[0] - 25, self.position[1] + 50),
                 height=20,
                 width=150,
                 background_color=(128, 128, 128),
-                button_text=f"{self.armor}",
+                button_text=f"{self.shield}",
                 font_size=20,
                 font_color=(0, 100, 0),
                 font_path="Fonts/Minecraft.ttf",
@@ -106,7 +86,7 @@ class Player(Entity):
                 self.add_child(self.armor_bar)
 
     def update_armor_bar(self):
-        self.armor_bar.text.text = f"{self.armor}"
+        self.armor_bar.text.text = f"{self.shield}"
 
     def create_vulnerability_bar(self):
         if self.vulnerability_bar is None:

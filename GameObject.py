@@ -1,5 +1,6 @@
 from typing import Callable
 import pygame
+
 import globals
 from pygame.math import Vector2
 
@@ -77,17 +78,19 @@ class GameObject(pygame.sprite.Sprite):
         return self._parent
     
     @property
-    def children(self):
+    def children(self) -> list['GameObject']:
         return self._children
     
     def add_child(self, child: 'GameObject'):
+        pos = child.position # uznaj obecną wartośc pozycji za relatywną do rodzica
         self._children.append(child)
         child._parent = self
+        child.position = pos
 
     def render(self, screen):
         if not self.visible:
             return
-        if self.rect is not None:
+        if self._image is not None:
             screen.blit(self._image, self.rect)
         for child in self._children:
             child.update_relative_position()

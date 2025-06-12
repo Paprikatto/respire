@@ -74,7 +74,7 @@ while running:
     
     #if pointing, draw a line from card to mouse position
     if globals.pointing and isinstance(globals.card, Card):
-        pygame.draw.line(screen, "white", globals.card.global_position, globals.mouse_position, 2)
+        pygame.draw.line(screen, "white", globals.card.global_position, globals.mouse_position, 5)
     # hovering logic
     hovered = globals.current_scene.hovered_item
     prev_hovered = globals.current_scene.prev_hovered_item

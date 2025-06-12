@@ -24,13 +24,11 @@ class BattleScene(Scene):
         self.add_object(player)
         self.enemies = enemies
         globals.player.position = (globals.WIDTH // 4, globals.HEIGHT // 2)
-        globals.player.create_hp_bar()
         if len(enemies) > 3:
             raise ValueError("Maximum of 3 enemies allowed")
         for i, enemy in enumerate(enemies):
             enemy.position = self.ENEMY_POSITIONS[i]
             self.add_object(enemy)
-            enemy.create_hp_bar()
 
     def render(self, screen):
         super().render(screen)
