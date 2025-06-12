@@ -15,12 +15,15 @@ class Player(Entity):
         self._current_frame = 0
         self._is_idle = True
         self.hp_bar = None
-        self.mana = 5
-        self._max_mana = 5
-        self.mana_bar = None
+        self.energy = 5
+        self.max_energy = 5
+        self.energy_bar = None
         self.armor_bar = None
         self.vulnerability = 5
         self.vulnerability_bar = None
+        self.create_hp_bar()
+        self.create_armor_bar()
+        self.create_vulnerability_bar()
 
     @property
     def name(self):
@@ -81,24 +84,6 @@ class Player(Entity):
         super().lose_health(value)
         self.update_hp_bar()
 
-    def create_mana_bar(self):
-        if self.mana_bar is None:
-            self.mana_bar = Text(
-                text=f"{self._name} Mana: {self.mana}/{self._max_mana}",
-                position=(self.position[0] - 20, self.position[1] - 120),
-                font_size=20,
-                color=(0, 0, 255),
-                font_name="Fonts/Minecraft.ttf"
-            )
-            super().add_child(self.mana_bar)
-        else:
-            self.update_mana_bar()
-            if self.mana_bar not in self.children:
-                super().add_child(self.mana_bar)
-
-    def update_mana_bar(self):
-        self.mana_bar.text = f"{self._name} Mana: {self.mana}/{self._max_mana}"
-
     def create_armor_bar(self):
         if self.armor_bar is None and self.armor > 0:
             self.armor_bar = Button(
@@ -114,11 +99,11 @@ class Player(Entity):
             )
             self.armor_bar.scale = (3, 3)
             self.armor_bar.text.position = (self.armor_bar.position[0], self.armor_bar.position[1] + 5)
-            super().add_child(self.armor_bar)
+            self.add_child(self.armor_bar)
         else:
             self.update_armor_bar()
             if self.armor_bar not in self.children:
-                super().add_child(self.armor_bar)
+                self.add_child(self.armor_bar)
 
     def update_armor_bar(self):
         self.armor_bar.text.text = f"{self.armor}"
