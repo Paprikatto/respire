@@ -20,7 +20,8 @@ class GameObject(pygame.sprite.Sprite):
         if image_path:
             self.image = image_path
         self._on_click = on_click
-            
+    
+    # position relative to parent
     @property
     def position(self):
         return self._position
@@ -35,7 +36,8 @@ class GameObject(pygame.sprite.Sprite):
             self._position = value
         if self.rect is not None:
             self.rect.center = int(self.global_position[0]), int(self.global_position[1]) 
-        
+            
+    # position on screen 
     @property
     def global_position(self):
         if self._parent:
