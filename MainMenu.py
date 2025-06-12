@@ -63,6 +63,7 @@ class MainMenu(Scene):
             globals.player.create_hp_bar()
             globals.player.create_mana_bar()
             globals.player.create_armor_bar()
+            globals.player.create_vulnerability_bar()
         if not hasattr(globals, "enemies") or globals.enemies is None:
             globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
         globals.current_scene = BattleScene(globals.player, globals.enemies)
