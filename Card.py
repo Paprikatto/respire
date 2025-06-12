@@ -1,3 +1,5 @@
+import pygame
+
 import globals
 import utils
 from Entity import Entity
@@ -106,29 +108,32 @@ class Card(GameObject):
                 break
             match action:
                 case "damage":
-                    target.take_damage(self.actions[action])
+                    target.lose_health(self.actions[action])
                 case "shield_player":
                     globals.player.gain_shield(self.actions[action])
                 case "add_player_energy":
                     globals.player.add_energy(self.actions[action])
                 case "damage_all":
-                    raise NotImplementedError("Damage all action is not implemented")
+                    if isinstance(globals.current_scene, BattleScene):
+                        for enemy in globals.current_scene.enemies:
+                            enemy.lose_health(self.actions[action])
                 case "vulnerable":
                     target.add_vulnerable(self.actions[action])
                 case "heal":
                     target.heal(self.actions[action])
                 case "draw":
                     globals.deck.draw(self.actions[action])
-                case "upgrade":
-                    globals.deck.upgrade_hand(self.actions[action])
+                # case "upgrade":
+                #     globals.deck.upgrade_hand(self.actions[action])
                 case _:
                     raise ValueError(f"Unknown action: {action}")
         if globals.deck is not None:
             globals.deck.used(self.hand_index)
             
     def on_click(self):
-        self.use(None)
-
+        globals.pointing_start = self.global_position
+        globals.pointing = True
+        globals.card = self
     def on_hover_enter(self):
         super().on_hover_enter()
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
