@@ -16,20 +16,18 @@ class Button(GameObject):
             self._width,
             self._height
         )
-        self.rect.center = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
-        self.text = Text(self._position, button_text, font_size, font_color, font_path) if button_text else None
+        self.rect.center = (self._position[0], self._position[1])
+        self.text = Text((0, 0), button_text, font_size, font_color, font_path) if button_text else None
         if self.text is not None:
             self.add_child(self.text)
         self.button_text = button_text
-        if self.text:
-            self.text.position = (self._position[0] + self._width // 2, self._position[1] + self._height // 2)
 
     def render(self, screen):
-        self.update_relative_position()
         if self._image:
             image_rect = self._image.get_rect(center=self.rect.center)
             screen.blit(self._image, image_rect)
         else:
             pygame.draw.rect(screen, self._background_color, self.rect)
         for c in self.children:
+            c.update_relative_position()
             c.render(screen)

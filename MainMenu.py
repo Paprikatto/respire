@@ -14,14 +14,14 @@ class MainMenu(Scene):
         super().__init__()
         self.background_color = (0, 0, 0)
         self.background = Button(
-            position=(0, 0),
+            position=(globals.WIDTH // 2, globals.HEIGHT // 2),
             height=globals.HEIGHT,
             width=globals.WIDTH,
             image_path="Sprites/respire_background.png"
         )
         self.title = GameObject(image_path="Sprites/respire_logo.png", position=(globals.WIDTH // 2, globals.HEIGHT // 4))
         self.start_button = Button(
-            position=(globals.WIDTH // 2 - 100, globals.HEIGHT // 2 - 25),
+            position=(globals.WIDTH // 2, globals.HEIGHT // 2 - 25),
             height=50,
             width=200,
             background_color=(0, 0, 255),
@@ -32,7 +32,7 @@ class MainMenu(Scene):
             on_click=self.start_game
         )
         self.quit_button = Button(
-            position=(globals.WIDTH // 2 - 100, globals.HEIGHT // 2 + 50),
+            position=(globals.WIDTH // 2, globals.HEIGHT // 2 + 50),
             height=50,
             width=200,
             background_color=(255, 0, 0),
@@ -54,7 +54,6 @@ class MainMenu(Scene):
     def start_game():
         from BattleScene import BattleScene
         from Player import Player
-        from Enemy import Enemy
         import globals
         if globals.player is None:
             globals.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))

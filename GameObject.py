@@ -85,13 +85,14 @@ class GameObject(pygame.sprite.Sprite):
         child._parent = self
 
     def render(self, screen):
-        self.update_relative_position()
         if not self.visible:
             return
         if self.rect is not None:
             screen.blit(self._image, self.rect)
         for child in self._children:
+            child.update_relative_position()
             child.render(screen)
+            
     def update_relative_position(self):
         if self.parent is not None:
             self.rect.center = int(self.global_position[0]), int(self.global_position[1])
