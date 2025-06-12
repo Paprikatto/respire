@@ -89,7 +89,6 @@ class Card(GameObject):
         else:
             self.global_position = self._target_position
 
-    def use(self, target):
         for action in self.actions.keys():
             if target is None:
                 break
