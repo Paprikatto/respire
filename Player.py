@@ -19,6 +19,8 @@ class Player(Entity):
         self._max_mana = 5
         self.mana_bar = None
         self.armor_bar = None
+        self.vulnerability = 5
+        self.vulnerability_bar = None
 
     @property
     def name(self):
@@ -118,3 +120,29 @@ class Player(Entity):
 
     def update_armor_bar(self):
         self.armor_bar.text.text = f"{self.armor}"
+
+    def create_vulnerability_bar(self):
+        if self.vulnerability_bar is None:
+            self.vulnerability_bar = Button(
+                position=(self.position[0], self.position[1] + 50),
+                height=20,
+                width=150,
+                background_color=(128, 128, 128),
+                button_text=f"{self.vulnerability}",
+                font_size=20,
+                font_color=(100, 0, 0),
+                font_path="Fonts/Minecraft.ttf",
+                image_path="Sprites/armor_icon.png",
+            )
+            self.vulnerability_bar.scale = (3, 3)
+            self.vulnerability_bar.text.position = (self.vulnerability_bar.position[0], self.vulnerability_bar.position[1] + 5)
+            super().add_child(self.vulnerability_bar)
+        else:
+            self.update_vulnerability_bar()
+            if self.vulnerability_bar not in self.children:
+                super().add_child(self.vulnerability_bar)
+
+    def update_vulnerability_bar(self):
+        self.vulnerability_bar.text.text = f"{self.vulnerability}"
+        if self.vulnerability > 0:
+            self.vulnerability_bar.background_color = (255, 0, 0)
