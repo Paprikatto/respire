@@ -64,14 +64,13 @@ while running:
     # RENDER YOUR GAME HERE
     globals.current_scene.render(screen)
     
-    if globals.current_scene.hovered_item is not None:
-        if globals.current_scene.prev_hovered_item != globals.current_scene.hovered_item:
-            if globals.current_scene.prev_hovered_item is not None:
-                globals.current_scene.prev_hovered_item.on_hover_exit()
-            globals.current_scene.hovered_item.on_hover_enter()
-    else:
-        if globals.current_scene.prev_hovered_item is not None:
-            globals.current_scene.prev_hovered_item.on_hover_exit()
+    hovered = globals.current_scene.hovered_item
+    prev_hovered = globals.current_scene.prev_hovered_item
+    if hovered != prev_hovered:
+        if prev_hovered is not None:
+            prev_hovered.on_hover_exit()
+        if hovered is not None:
+            hovered.on_hover_enter()
 
     globals.current_scene.prev_hovered_item = globals.current_scene.hovered_item
     # flip() the display to put your work on screen
