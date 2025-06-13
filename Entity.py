@@ -3,11 +3,14 @@ import abc
 from Button import Button
 from GameObject import GameObject
 from ProgressBar import ProgressBar
+from Text import Text
+
 
 class Entity(abc.ABC, GameObject):
 
     def __init__(self, max_health, shield=0, position=(0, 0), image_path=None, hp_bar_offset: tuple[int, int] = (0, 100)):
         super().__init__(position, image_path)
+        self.hp_text = None
         self.shield_widget = None
         self.hp_bar_widget = None
         self.hp_bar_offset = hp_bar_offset
@@ -27,6 +30,8 @@ class Entity(abc.ABC, GameObject):
             self._current_health -= value
         if hasattr(self.hp_bar_widget, "value"):
             self.hp_bar_widget.value = self.current_health
+        if isinstance(self.hp_text, Text):
+            self.hp_text.text = f"{self.current_health}/{self.max_health}"
 
     def gain_health(self, value):
         if value < 0:
@@ -85,6 +90,7 @@ class Entity(abc.ABC, GameObject):
             value=self.current_health, 
             max_value=self._max_health
         )
+        self.add_child(self.hp_bar_widget)
         self.shield_widget = Button(
                     position=(-self.hp_bar_widget.width // 2 - 10, 0),
                     height=20,
@@ -99,6 +105,11 @@ class Entity(abc.ABC, GameObject):
                 )
         self.shield_widget.scale = (3, 3)
         self.hp_bar_widget.add_child(self.shield_widget)
-        self.add_child(self.hp_bar_widget)
         self.shield_widget.visible = self.shield > 0
+        self.hp_text = Text(
+            font_name="Fonts/Minecraft.ttf",
+            font_size=20,
+            text=f"{self.current_health}/{self.max_health}"
+        )
+        self.hp_bar_widget.add_child(self.hp_text)
         
