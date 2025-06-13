@@ -3,18 +3,17 @@ import abc
 from Button import Button
 from GameObject import GameObject
 from ProgressBar import ProgressBar
-from Text import Text
 
 class Entity(abc.ABC, GameObject):
 
-    def __init__(self, max_health, shield, position=(0, 0), image_path=None, name="Entity", hp_bar_offset: tuple[int, int] = (0, 100)):
+    def __init__(self, max_health, shield=0, position=(0, 0), image_path=None, hp_bar_offset: tuple[int, int] = (0, 100)):
         super().__init__(position, image_path)
-        self.hp_bar_offset = hp_bar_offset
+        self.shield_widget = None
         self.hp_bar_widget = None
+        self.hp_bar_offset = hp_bar_offset
         self._max_health = max_health
         self._current_health = max_health
         self._shield = shield
-        self._name = name
         self.create_hp_bar()
 
     def lose_health(self, value):
@@ -22,11 +21,10 @@ class Entity(abc.ABC, GameObject):
             raise ValueError("Amount must be non-negative")
         if self.shield > value:
             self.shield -= value
-            return
         else:
             value = value - self.shield
             self.shield = 0
-        self._current_health -= value
+            self._current_health -= value
         if hasattr(self.hp_bar_widget, "value"):
             self.hp_bar_widget.value = self.current_health
 
@@ -69,10 +67,33 @@ class Entity(abc.ABC, GameObject):
     def shield(self, value):
         if value < 0:
             raise ValueError("Shield cannot be negative")
+        if isinstance(self.shield_widget, GameObject):
+            self.shield_widget.visible = value != 0
+        else:
+            print("shield widget not a game object")
         self._shield = value
+        
+    def gain_shield(self, value):
+        self.shield += value
         
     def create_hp_bar(self):
         if self.image is None:
             raise ValueError("Image must be set before creating HP bar")
-        self.hp_bar_widget = ProgressBar(position=(0 + self.hp_bar_offset[0], self.image.get_height() + self.hp_bar_offset[1]), value=self._max_health // 2, max_value=self._max_health)
+        self.hp_bar_widget = ProgressBar(position=(0 + self.hp_bar_offset[0], self.image.get_height() + self.hp_bar_offset[1]), value=self.current_health, max_value=self._max_health)
+        self.shield_widget = Button(
+                    position=(-self.hp_bar_widget.width // 2 - 10, 0),
+                    height=20,
+                    width=150,
+                    background_color=(128, 128, 128),
+                    button_text=f"{self.shield}",
+                    font_size=22,
+                    font_color=(0, 0, 0),
+                    font_path="Fonts/Minecraft.ttf",
+                    image_path="Sprites/armor_icon.png",
+                    text_offset=(0, 5)
+                )
+        self.shield_widget.scale = (3, 3)
+        self.hp_bar_widget.add_child(self.shield_widget)
         self.add_child(self.hp_bar_widget)
+        self.shield_widget.visible = self.shield > 0
+        

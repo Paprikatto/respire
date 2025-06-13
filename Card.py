@@ -104,6 +104,7 @@ class Card(GameObject):
             if isinstance(globals.current_scene, BattleScene):
                 globals.current_scene.update_energy_text()
         
+        print(f"using {self.actions} on {target}")
         # perform actions
         for action in self.actions.keys():
             if target is None:

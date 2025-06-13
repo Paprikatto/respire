@@ -47,21 +47,15 @@ class MainMenu(Scene):
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
         if globals.player is None:
-            globals.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
-        self.add_object(globals.player)
+            globals.player = Player(40,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
 
     @staticmethod
     def start_game():
         from BattleScene import BattleScene
-        from Player import Player
-        import globals
-        if globals.player is None:
-            globals.player = Player("Player", 100, 10, position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
-        else:
-            globals.player.position = (globals.WIDTH // 2 - 300, globals.HEIGHT // 2 - 100)
         if not hasattr(globals, "enemies") or globals.enemies is None:
             globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
         globals.current_scene = BattleScene(globals.player, globals.enemies)
+        globals.current_scene.add_object(globals.player)
 
     @staticmethod
     def quit_game():
