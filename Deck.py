@@ -7,21 +7,21 @@ import random
 
 def generate_starting_cards() -> List:
     cards = []
+    cards.append(Card({"damage": 5}, 1, False))
     cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
-    cards.append(Card({"damage": 5}, 2, False))
+    cards.append(Card({"damage": 5}, 3, False))
+    cards.append(Card({"damage": 5}, 4, False))
+    cards.append(Card({"damage": 5}, 5, False))
+    cards.append(Card({"vulnerable": 2}, 1, False))
     cards.append(Card({"vulnerable": 2}, 2, False))
-    cards.append(Card({"vulnerable": 2}, 2, False))
-    cards.append(Card({"vulnerable": 2}, 2, False))
-    cards.append(Card({"vulnerable": 2}, 2, False))
-    cards.append(Card({"vulnerable": 2}, 2, False))
+    cards.append(Card({"vulnerable": 2}, 3, False))
+    cards.append(Card({"vulnerable": 2}, 4, False))
+    cards.append(Card({"vulnerable": 2}, 5, False))
+    cards.append(Card({"shield_player": 5}, 1, True))
     cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
-    cards.append(Card({"shield_player": 5}, 2, True))
+    cards.append(Card({"shield_player": 5}, 3, True))
+    cards.append(Card({"shield_player": 5}, 4, True))
+    cards.append(Card({"shield_player": 5}, 5, True))
     return cards
 
 

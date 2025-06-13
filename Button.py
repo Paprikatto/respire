@@ -4,7 +4,7 @@ from Text import Text
 
 class Button(GameObject):
     def __init__(self, position, height: int, width: int, background_color=(0,0,255),
-                 button_text="", font_size=30, font_color=(255, 255, 255), font_path=None,
+                 text="", font_size=30, font_color=(255, 255, 255), font_path=None,
                  image_path=None, on_click=None, text_offset: tuple[int, int] = (0, 0)):
         super().__init__(position, image_path=image_path, on_click=on_click)
         self._height = height
@@ -19,9 +19,16 @@ class Button(GameObject):
             self._height
         )
         self.rect.center = (self._position[0], self._position[1])
-        self.text = Text(text_offset, button_text, font_size, font_color, font_path)
-        self.add_child(self.text)
-        self.button_text = button_text
+        self.text_widget = Text(text_offset, text, font_size, font_color, font_path)
+        self.add_child(self.text_widget)
+        
+    @property
+    def text(self):
+        return self.text_widget.text
+    
+    @text.setter
+    def text(self, value):
+        self.text_widget.text = value
         
     @property
     def height(self):

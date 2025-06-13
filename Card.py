@@ -176,9 +176,14 @@ class Card(GameObject):
             texts.append(Text(Vector2(0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
         return texts
     def create_energy_widget(self):
-        widget = Button((0, 0), 20, 20, button_text=f"3", font_color=(255,255,0))
+        widget = Button((0, 0), 20, 20,
+                        text=f"{self.energy_cost}",
+                        font_size=Card.FONT_SIZE,
+                        font_color=(255, 255, 0),
+                        image_path="Sprites/circle3.png",
+                        font_path="Fonts/Minecraft.ttf"
+                        )
+        widget.scale = (3, 3)
         self.add_child(widget)
-        # print(0, self.image.get_height)
-        widget.position = (-self.image.get_width() // 2, -self.image.get_height() // 2)
-        print("a")
+        widget.position = (-self.image.get_width() // 2 + 8, -self.image.get_height() // 2 + 8)
 

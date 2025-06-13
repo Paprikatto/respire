@@ -75,17 +75,22 @@ class Entity(abc.ABC, GameObject):
         
     def gain_shield(self, value):
         self.shield += value
+        self.shield_widget.text = f"{self.shield}"
         
     def create_hp_bar(self):
         if self.image is None:
             raise ValueError("Image must be set before creating HP bar")
-        self.hp_bar_widget = ProgressBar(position=(0 + self.hp_bar_offset[0], self.image.get_height() + self.hp_bar_offset[1]), value=self.current_health, max_value=self._max_health)
+        self.hp_bar_widget = ProgressBar(
+            position=(0 + self.hp_bar_offset[0], self.image.get_height() + self.hp_bar_offset[1]),
+            value=self.current_health, 
+            max_value=self._max_health
+        )
         self.shield_widget = Button(
                     position=(-self.hp_bar_widget.width // 2 - 10, 0),
                     height=20,
                     width=150,
                     background_color=(128, 128, 128),
-                    button_text=f"{self.shield}",
+                    text=f"{self.shield}",
                     font_size=22,
                     font_color=(0, 0, 0),
                     font_path="Fonts/Minecraft.ttf",
