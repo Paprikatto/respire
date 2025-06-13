@@ -192,7 +192,7 @@ class Card(GameObject):
         str = str.split("\n")
         for i, line in enumerate(str):
             l = line.strip()
-            texts.append(Text(Vector2(0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
+            texts.append(Text((0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
         return texts
     def create_energy_widget(self):
         widget = Button((0, 0), 20, 20,
@@ -200,7 +200,6 @@ class Card(GameObject):
                         font_size=Card.FONT_SIZE,
                         font_color=(255, 255, 0),
                         image="Sprites/circle3.png",
-                        font_path="Fonts/Minecraft.ttf"
                         )
         widget.scale = (3, 3)
         self.add_child(widget)

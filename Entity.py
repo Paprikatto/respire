@@ -99,7 +99,6 @@ class Entity(abc.ABC, GameObject):
                     text=f"{self.shield}",
                     font_size=22,
                     font_color=(0, 0, 0),
-                    font_path="Fonts/Minecraft.ttf",
                     image="Sprites/armor_icon.png",
                     text_offset=(0, 5)
                 )

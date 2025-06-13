@@ -1,4 +1,6 @@
 import pygame
+
+import globals
 from GameObject import GameObject
 
 class Text(GameObject):
@@ -7,7 +9,7 @@ class Text(GameObject):
         self._text = text
         self._font_size = font_size
         self._color = color
-        self._font_name = font_name if font_name else pygame.font.get_default_font()
+        self._font_name = font_name if font_name else globals.default_font
         self._font = pygame.font.Font(self._font_name, self._font_size)
         self.image = self._font.render(self._text, True, self._color)
         self.rect = self.image.get_rect()

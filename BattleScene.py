@@ -9,7 +9,6 @@ def create_energy_text():
         position=(150, globals.HEIGHT - 200),
         font_size=20,
         color=(255, 255, 0),
-        font_name="Fonts/Minecraft.ttf"
     )
     return txt
 

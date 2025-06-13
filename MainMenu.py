@@ -28,7 +28,6 @@ class MainMenu(Scene):
             text="Start Game",
             font_size=30,
             font_color=(255, 255, 255),
-            font_path="Fonts/Minecraft.ttf",
             on_click=self.start_game
         )
         self.quit_button = Button(
@@ -39,7 +38,6 @@ class MainMenu(Scene):
             text="Quit Game",
             font_size=30,
             font_color=(255, 255, 255),
-            font_path="Fonts/Minecraft.ttf",
             on_click= self.quit_game
         )
         self.add_object(self.background)
