@@ -8,8 +8,8 @@ from Text import Text
 
 class Entity(abc.ABC, GameObject):
 
-    def __init__(self, max_health, shield=0, position=(0, 0), image_path=None, hp_bar_offset: tuple[int, int] = (0, 100)):
-        super().__init__(position, image_path)
+    def __init__(self, max_health, shield=0, position=(0, 0), image=None, hp_bar_offset: tuple[int, int] = (0, 100)):
+        super().__init__(position, image)
         self.hp_text = None
         self.shield_widget = None
         self.hp_bar_widget = None
@@ -100,7 +100,7 @@ class Entity(abc.ABC, GameObject):
                     font_size=22,
                     font_color=(0, 0, 0),
                     font_path="Fonts/Minecraft.ttf",
-                    image_path="Sprites/armor_icon.png",
+                    image="Sprites/armor_icon.png",
                     text_offset=(0, 5)
                 )
         self.shield_widget.scale = (3, 3)

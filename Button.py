@@ -5,8 +5,8 @@ from Text import Text
 class Button(GameObject):
     def __init__(self, position, height: int, width: int, background_color=(0,0,255),
                  text="", font_size=30, font_color=(255, 255, 255), font_path=None,
-                 image_path=None, on_click=None, text_offset: tuple[int, int] = (0, 0)):
-        super().__init__(position, image_path=image_path, on_click=on_click)
+                 image=None, on_click=None, text_offset: tuple[int, int] = (0, 0)):
+        super().__init__(position, image=image, on_click=on_click)
         self._height = height
         self._width = width
         self._background_color = background_color

@@ -17,9 +17,9 @@ class MainMenu(Scene):
             position=(globals.WIDTH // 2, globals.HEIGHT // 2),
             height=globals.HEIGHT,
             width=globals.WIDTH,
-            image_path="Sprites/respire_background.png"
+            image="Sprites/respire_background.png"
         )
-        self.title = GameObject(image_path="Sprites/respire_logo.png", position=(globals.WIDTH // 2, globals.HEIGHT // 4))
+        self.title = GameObject(image="Sprites/respire_logo.png", position=(globals.WIDTH // 2, globals.HEIGHT // 4))
         self.start_button = Button(
             position=(globals.WIDTH // 2, globals.HEIGHT // 2 - 25),
             height=50,
@@ -47,7 +47,7 @@ class MainMenu(Scene):
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
         if globals.player is None:
-            globals.player = Player(40,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
+            globals.player = Player(80,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
 
     @staticmethod
     def start_game():

@@ -5,7 +5,7 @@ import globals
 from pygame.math import Vector2
 
 class GameObject(pygame.sprite.Sprite):
-    def __init__(self, position=(0,0), image_path=None, on_click: Callable | None = None):
+    def __init__(self, position=(0,0), image=None, on_click: Callable | None = None):
         super().__init__()
         self.visible: bool = True 
         self.rect = None
@@ -18,8 +18,8 @@ class GameObject(pygame.sprite.Sprite):
         self.original_size = (0,0) # used for scaling
         # if true, GameObject reacts on mouse hover
         self.check_hover = False
-        if image_path:
-            self.image = image_path
+        if image:
+            self.image = image
         self._on_click = on_click
     
     # position relative to parent
@@ -49,7 +49,7 @@ class GameObject(pygame.sprite.Sprite):
     def global_position(self, value: Vector2 | list | tuple):
         if hasattr(self, 'verbose'):
             if self.verbose:
-                print(f"Setting global position: {value}")
+                print(f"Setting global position: {value}, {self.__class__}")
         if not isinstance(value, Vector2):
             if len(value) != 2:
                 raise ValueError("Position list must be of length 2")

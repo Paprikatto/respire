@@ -1,13 +1,8 @@
 import pygame
-from BattleScene import BattleScene
 from Card import Card
 from Deck import Deck
-from Enemy import Enemy
 from Entity import Entity
-from GameObject import GameObject
 from MainMenu import MainMenu
-from Player import Player
-from Text import Text
 import globals
 import warnings
 warnings.filterwarnings("ignore")
@@ -40,6 +35,11 @@ def setup_scene():
     return scene
 
 pygame.init()
+if not pygame.mixer.get_init():
+    pygame.mixer.init()
+pygame.mixer.music.load("Sounds/bg_music.mp3")
+pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.set_volume(0.2)
 globals.deck = Deck()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")

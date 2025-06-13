@@ -4,7 +4,7 @@ from Button import Button
 class Player(Entity):
     """Class representing a player in the game."""
     def __init__(self, max_health, shield = 0, position=(0, 0)):
-        super().__init__(max_health, shield, position=position, image_path="Sprites/Player/player.png")
+        super().__init__(max_health, shield, position=position, image="Sprites/Player/player.png")
         self._idle_frame = 0
         self.check_hover = True
         self._animation_list = {
@@ -15,8 +15,8 @@ class Player(Entity):
         self._current_frame = 0
         self._is_idle = True
         self.hp_bar = None
-        self.energy = 5
-        self.max_energy = 5
+        self.max_energy = 500
+        self.energy = self.max_energy
         self.energy_bar = None
         self.armor_bar = None
         self.vulnerability = 5
