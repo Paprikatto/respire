@@ -67,15 +67,15 @@ class Entity(abc.ABC, GameObject):
     def shield(self, value):
         if value < 0:
             raise ValueError("Shield cannot be negative")
+        self._shield = value
         if isinstance(self.shield_widget, GameObject):
             self.shield_widget.visible = value != 0
+            self.shield_widget.text = f"{self.shield}"
         else:
             print("shield widget not a game object")
-        self._shield = value
         
     def gain_shield(self, value):
         self.shield += value
-        self.shield_widget.text = f"{self.shield}"
         
     def create_hp_bar(self):
         if self.image is None:

@@ -8,4 +8,3 @@ class Enemy(Entity):
         super().__init__(max_health, shield, position=position, image_path=image_path, hp_bar_offset=hp_bar_offset)
         self.check_hover = True
         self._image = pygame.transform.flip(self._image, True, False)
-        self.hp_bar = None
