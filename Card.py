@@ -177,9 +177,9 @@ class Card(GameObject):
                 case "add_player_energy":
                     str += f"Gain {value} energy\n"
                 case "damage_all":
-                    str += f"Deal {value} damage to all enemies\n"
+                    str += f"Deal {value} damage\nto all enemies\n"
                 case "vulnerable":
-                    str += f"Apply {value} vulnerable\n"
+                    str += f"Apply vulnerable\nfor {value} rounds\n"
                 case "heal":
                     str += f"Heal {value}\n"
                 case "draw":

@@ -1,5 +1,6 @@
 import abc
 
+from Animation import Animation
 from Button import Button
 from GameObject import GameObject
 from ProgressBar import ProgressBar
@@ -19,6 +20,12 @@ class Entity(abc.ABC, GameObject):
         self._shield = shield
         self.create_hp_bar()
         self.dead = False
+        self.damage_animation = Animation(
+            ["Sprites/Slash/slash-anim-1.png","Sprites/Slash/slash-anim-2.png", "Sprites/Slash/slash-anim-3.png", "Sprites/Slash/slash-anim-4.png", "Sprites/Slash/slash-anim-5.png"],
+            position = hp_bar_offset,
+            scale=(3, 3)
+        )
+        self.add_child(self.damage_animation)
 
     def lose_health(self, value):
         if value < 0:
@@ -29,6 +36,8 @@ class Entity(abc.ABC, GameObject):
             value = value - self.shield
             self.shield = 0
             self._current_health -= value
+        
+        self.damage_animation.play()
         
         if self._current_health < 0:
             self._current_health = 0
