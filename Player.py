@@ -1,6 +1,7 @@
+import pygame.mixer
+
 from Entity import Entity
-from Text import Text
-from Button import Button
+from Deck import CARD_SOUNDS
 class Player(Entity):
     """Class representing a player in the game."""
     def __init__(self, max_health, shield = 0, position=(0, 0)):
@@ -21,8 +22,13 @@ class Player(Entity):
         self.armor_bar = None
         self.vulnerability = 5
         self.vulnerability_bar = None
+        self.damage_sound = pygame.mixer.Sound(CARD_SOUNDS["sword"])
+        self.damage_sound.set_volume(0.5)
 
 
+    def lose_health(self, value):
+        super().lose_health(value)
+        self.damage_sound.play()
     def update(self):
         super().update()
         if self._is_idle:
