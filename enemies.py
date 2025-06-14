@@ -1,4 +1,4 @@
-from Enemy import Enemy
+from Enemy import Enemy, EnemyAction
 from Text import Text
 import pygame
 
@@ -8,6 +8,12 @@ class SkeletonSword(Enemy):
         self.scale = (4, 4)  # Set the scale for the skeleton sword enemy
         self._animation_list = ["Sprites/Enemies/SkeletonSword/idle-1.png", "Sprites/Enemies/SkeletonSword/idle-2.png", "Sprites/Enemies/SkeletonSword/idle-3.png", "Sprites/Enemies/SkeletonSword/idle-4.png"]
         self._current_frame = 0
+        self.set_actions(
+            [
+                EnemyAction("damage", 5, 5),
+                EnemyAction("shield", 3, 1)
+            ]
+        )
 
     def update(self):
         super().update()
@@ -24,6 +30,12 @@ class SkeletonShield(Enemy):
         self.scale = (4, 4)
         self._animation_list = ["Sprites/Enemies/SkeletonShield/idle-1.png", "Sprites/Enemies/SkeletonShield/idle-2.png", "Sprites/Enemies/SkeletonShield/idle-3.png", "Sprites/Enemies/SkeletonShield/idle-4.png"]
         self._current_frame = 0
+        self.set_actions(
+            [
+                EnemyAction("damage", 5, 5),
+                EnemyAction("shield", 3, 1)
+            ]
+        )
 
     def update(self):
         super().update()
@@ -40,6 +52,12 @@ class Shadow(Enemy):
         self.scale = (4, 4)
         self._animation_list = ["Sprites/Enemies/Shadow/idle-1.png", "Sprites/Enemies/Shadow/idle-2.png", "Sprites/Enemies/Shadow/idle-3.png", "Sprites/Enemies/Shadow/idle-4.png"]
         self._current_frame = 0
+        self.set_actions(
+            [
+                EnemyAction("damage", 5, 5),
+                EnemyAction("shield", 3, 1)
+            ]
+        )
 
     def update(self):
         super().update()

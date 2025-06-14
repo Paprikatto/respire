@@ -3,7 +3,7 @@ from GameObject import GameObject
 from Text import Text
 
 class Button(GameObject):
-    def __init__(self, position, height: int, width: int, background_color=(0,0,255),
+    def __init__(self, position, height: int = 30, width: int = 100, background_color=(0,0,255),
                  text="", font_size=30, font_color=(255, 255, 255), font_path=None,
                  image=None, on_click=None, text_offset: tuple[int, int] = (0, 0)):
         super().__init__(position, image=image, on_click=on_click)

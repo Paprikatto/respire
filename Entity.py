@@ -18,6 +18,7 @@ class Entity(abc.ABC, GameObject):
         self._current_health = max_health
         self._shield = shield
         self.create_hp_bar()
+        self.dead = False
 
     def lose_health(self, value):
         if value < 0:
@@ -28,6 +29,11 @@ class Entity(abc.ABC, GameObject):
             value = value - self.shield
             self.shield = 0
             self._current_health -= value
+        
+        if self._current_health < 0:
+            self._current_health = 0
+        if self._current_health == 0:
+            self.on_death()
         if hasattr(self.hp_bar_widget, "value"):
             self.hp_bar_widget.value = self.current_health
         if isinstance(self.hp_text, Text):
@@ -111,4 +117,8 @@ class Entity(abc.ABC, GameObject):
             text=f"{self.current_health}/{self.max_health}"
         )
         self.hp_bar_widget.add_child(self.hp_text)
-        
+    
+    def on_death(self):
+        self.visible = False
+        print("Add on death function!")
+        self.dead = True

@@ -15,7 +15,7 @@ class Player(Entity):
         self._current_frame = 0
         self._is_idle = True
         self.hp_bar = None
-        self.max_energy = 500
+        self.max_energy = 3
         self.energy = self.max_energy
         self.energy_bar = None
         self.armor_bar = None

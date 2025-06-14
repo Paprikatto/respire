@@ -19,10 +19,10 @@ CARD_SOUNDS = {
 def generate_starting_cards() -> List:
     cards = []
     cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    cards.append(Card({"damage": 5}, 3, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    cards.append(Card({"damage": 5}, 4, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    cards.append(Card({"damage": 5}, 5, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     # cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"]))
     # cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"]))
     # cards.append(Card({"damage": 5}, 3, False, CARD_IMAGES["sword"]))
@@ -33,11 +33,11 @@ def generate_starting_cards() -> List:
     # cards.append(Card({"vulnerable": 2}, 3, False, CARD_IMAGES["sword"]))
     # cards.append(Card({"vulnerable": 2}, 4, False, CARD_IMAGES["sword"]))
     # cards.append(Card({"vulnerable": 2}, 5, False, CARD_IMAGES["sword"]))
-    cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
     cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
-    cards.append(Card({"shield_player": 5}, 3, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
-    cards.append(Card({"shield_player": 5}, 4, True, CARD_IMAGES["shield"],CARD_SOUNDS["shield"]))
-    cards.append(Card({"shield_player": 5}, 4, True, CARD_IMAGES["shield"],CARD_SOUNDS["shield"]))
+    cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
+    cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
+    cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"],CARD_SOUNDS["shield"]))
+    cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"],CARD_SOUNDS["shield"]))
     return cards
 
 
