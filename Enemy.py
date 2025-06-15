@@ -1,3 +1,5 @@
+from argparse import ArgumentError
+
 import pygame.transform
 import globals
 
@@ -32,6 +34,16 @@ class ActionsWidget(GameObject):
     def number(self, value):
         self.number_widget.text = value
 
+
+def get_stat(array: list[int], index: int) -> int:
+    if index < 0:
+        raise ValueError("index must be higher or equal 0")
+    if index >= len(array):
+        return array[-1]
+    else:
+        return array[index]
+
+
 class Enemy(Entity):
     """Class representing an enemy in the game."""
     def __init__(self, max_health, shield, position=(0, 0), image=None, hp_bar_offset: tuple[int, int] = (0, 100)):
@@ -43,6 +55,7 @@ class Enemy(Entity):
         self.actions: list[str] = []
         self.actions_widget: ActionsWidget = self.create_actions_widget()
         self.actions_widget.visible = False
+        self.battle_index = self.get_battle_index()
         
     def set_actions(self, value: list[EnemyAction]):
         for a in value:
@@ -91,6 +104,12 @@ class Enemy(Entity):
         if isinstance(globals.current_scene, BattleScene):
             globals.current_scene.check_enemies_dead()
             
+    def get_battle_index(self) -> int:
+        from SceneManager import SceneManager
+        if isinstance(globals.scene_manager, SceneManager):
+            return globals.scene_manager.battle_index
+        return -1
+        
 
         
         

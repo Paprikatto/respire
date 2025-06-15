@@ -9,7 +9,7 @@ from enemies import *
 
 class SceneManager:
     def __init__(self):
-        self.battle_index: int = 0
+        self.battle_index: int = -1
         if globals.scene_manager is None:
             globals.scene_manager = self
         globals.current_scene = MainMenu()
