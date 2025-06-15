@@ -3,6 +3,7 @@ from Card import Card
 from Deck import Deck
 from Entity import Entity
 from MainMenu import MainMenu
+from RewardScene import RewardScene
 import globals
 import warnings
 warnings.filterwarnings("ignore")
@@ -45,7 +46,6 @@ screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
 running = True
-
 globals.current_scene = setup_scene()
 
 while running:

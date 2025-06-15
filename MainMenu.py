@@ -50,10 +50,12 @@ class MainMenu(Scene):
     @staticmethod
     def start_game():
         from BattleScene import BattleScene
-        if not hasattr(globals, "enemies") or globals.enemies is None:
-            globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
-        globals.current_scene = BattleScene(globals.player, globals.enemies)
-        globals.current_scene.add_object(globals.player)
+        from RewardScene import RewardScene
+        # if not hasattr(globals, "enemies") or globals.enemies is None:
+        #     globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
+        # globals.current_scene = BattleScene(globals.player, globals.enemies)
+        # globals.current_scene.add_object(globals.player)
+        globals.current_scene = RewardScene(globals.deck)
 
     @staticmethod
     def quit_game():
