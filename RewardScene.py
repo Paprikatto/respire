@@ -41,9 +41,9 @@ class RewardScene(Scene):
                 card_data["image_path"],
                 sound
             )
-            reward_card.hand_index = -3  # najpierw ustaw indeks
-            reward_card.global_position = positions[i]  # potem pozycję
-            reward_card._target_position = positions[i]
+            reward_card.hand_index = -3  # Ustawienie indeksu karty w ręce na -3, aby nie była widoczna na dole ekranu
+            reward_card.global_position = positions[i]  # Ustawienie pozycji kart
+            reward_card._target_position = positions[i] # Ustawienie pozycji docelowej kart (target taki sam jak pozycja, aby nie było animacji)
 
             def on_click(card_data=card_data):
                 new_card = Card(
