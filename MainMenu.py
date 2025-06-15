@@ -49,13 +49,17 @@ class MainMenu(Scene):
 
     @staticmethod
     def start_game():
+        from SceneManager import SceneManager
+        if isinstance(globals.scene_manager, SceneManager):
+            globals.scene_manager.start_battle()
+            return
         from BattleScene import BattleScene
         from RewardScene import RewardScene
         # if not hasattr(globals, "enemies") or globals.enemies is None:
         #     globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
         # globals.current_scene = BattleScene(globals.player, globals.enemies)
         # globals.current_scene.add_object(globals.player)
-        globals.current_scene = RewardScene(globals.deck)
+        globals.current_scene = RewardScene()
 
     @staticmethod
     def quit_game():

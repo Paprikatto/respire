@@ -9,10 +9,11 @@ import random
 from cards import CARDS_DATA
 
 class RewardScene(Scene):
-    def __init__(self, deck: Deck):
+    def __init__(self):
         super().__init__()
         self.background_color = (0, 0, 0)
-        self.deck = deck
+        if isinstance(globals.deck, Deck):
+            self.deck = globals.deck
         self.reward_text = Text(
             position=(globals.WIDTH // 2, globals.HEIGHT // 4),
             text="Choose your reward",

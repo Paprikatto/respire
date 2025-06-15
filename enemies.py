@@ -1,5 +1,4 @@
 from Enemy import Enemy, EnemyAction
-from Text import Text
 import pygame
 
 class SkeletonSword(Enemy):

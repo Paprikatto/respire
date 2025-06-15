@@ -72,7 +72,9 @@ class BattleScene(Scene):
         self.update_energy_text()
         
     def check_enemies_dead(self):
+        from SceneManager import SceneManager
         for e in self.enemies:
             if not e.dead:
                 return
-        raise RuntimeError("Implement new scene")
+        if isinstance(globals.scene_manager, SceneManager):
+            globals.scene_manager.on_battle_win()
