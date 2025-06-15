@@ -18,7 +18,7 @@ def create_energy_text():
 
 
 class BattleScene(Scene):
-    ENEMY_POSITIONS = ((globals.WIDTH // 10 * 6, globals.HEIGHT // 10 * 6 ), (globals.WIDTH // 10 * 6, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 17, globals.HEIGHT // 10 * 4))
+    ENEMY_POSITIONS = ((globals.WIDTH // 10 * 5, globals.HEIGHT // 10 * 5 ), (globals.WIDTH // 10 * 7, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 18, globals.HEIGHT // 10 * 4))
     def __init__(self, player, enemies: list):
         super().__init__()
         self.energy_text: Text = create_energy_text()
