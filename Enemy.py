@@ -85,7 +85,12 @@ class Enemy(Entity):
         super().on_start_player_turn()
         self.request_action()
         
-        
+    def on_death(self):
+        from BattleScene import BattleScene
+        super().on_death()
+        if isinstance(globals.current_scene, BattleScene):
+            globals.current_scene.check_enemies_dead()
+            
 
         
         

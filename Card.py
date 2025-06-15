@@ -9,7 +9,6 @@ from pygame.math import Vector2
 
 
 
-
 class Card(GameObject):
     ANIM_SPEED = 6
     HAND_WIDTH = round(globals.WIDTH * 0.5)
@@ -151,10 +150,15 @@ class Card(GameObject):
             globals.deck.used(self.hand_index)
             
     def on_click(self):
+        from RewardScene import RewardScene
+        from SceneManager import SceneManager
         if self._hand_index != -3:  # if card is not reward card
             globals.pointing_start = self.global_position
             globals.pointing = True
         globals.card = self
+        if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
+            globals.scene_manager.start_battle()
+        
     def on_hover_enter(self):
         super().on_hover_enter()
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
