@@ -91,5 +91,9 @@ class Deck:
         # Render hovered card second time to display it on top of others
         if isinstance(globals.current_scene.hovered_item, Card):
             globals.current_scene.hovered_item.render(screen)
+
+    @property
+    def deck(self):
+        return self._deck
             
             
