@@ -1,5 +1,7 @@
 import abc
 
+from scipy.spatial.transform import Slerp
+
 from Animation import Animation
 from Button import Button
 from GameObject import GameObject
@@ -18,6 +20,8 @@ class Entity(abc.ABC, GameObject):
         self._max_health = max_health
         self._current_health = max_health
         self._shield = shield
+        self._vulnerable = 0
+        self.vulnerable_image = None
         self.create_hp_bar()
         self.dead = False
         self.damage_animation = Animation(
@@ -30,6 +34,8 @@ class Entity(abc.ABC, GameObject):
     def lose_health(self, value):
         if value < 0:
             raise ValueError("Amount must be non-negative")
+        if self._vulnerable > 0:
+            value = int(value * 1.5)
         if self.shield > value:
             self.shield -= value
         else:
@@ -68,6 +74,18 @@ class Entity(abc.ABC, GameObject):
     @property
     def is_alive(self):
         return self._current_health > 0
+    
+    @property
+    def vulnerable(self):
+        return self._vulnerable
+    
+    @vulnerable.setter
+    def vulnerable(self, value):
+        self._vulnerable = value
+        self.vulnerable_image.visible = self._vulnerable != 0
+        
+    def add_vulnerable(self, value):
+        self.vulnerable = self._vulnerable + value
     
     @current_health.setter
     def current_health(self, value):
@@ -126,8 +144,22 @@ class Entity(abc.ABC, GameObject):
             text=f"{self.current_health}/{self.max_health}"
         )
         self.hp_bar_widget.add_child(self.hp_text)
+        self.vulnerable_image = GameObject(
+            position=(-self.hp_bar_widget.width // 2 + 20, self.hp_bar_widget.height + 20),
+            image="Sprites/vulnerable.png"
+        )
+        self.vulnerable_image.scale = (0.5, 0.5)
+        self.hp_bar_widget.add_child(self.vulnerable_image)
+        self.vulnerable_image.visible = self._vulnerable != 0
     
     def on_death(self):
         self.visible = False
         print("Add on death function!")
         self.dead = True
+        
+    def on_end_player_turn(self):
+        if self._vulnerable > 0:
+            self.vulnerable = self._vulnerable - 1
+    
+    def on_start_player_turn(self):
+        pass

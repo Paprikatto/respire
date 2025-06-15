@@ -10,7 +10,8 @@ if not pygame.mixer.get_init():
     pygame.mixer.init()
 CARD_IMAGES = {
     "sword": pygame.image.load("Sprites/card-sword.png"),
-    "shield": pygame.image.load("Sprites/card-shield.png")
+    "shield": pygame.image.load("Sprites/card-shield.png"),
+    "vulnerable": pygame.image.load("Sprites/card-vulnerable.png")
 }
 CARD_SOUNDS = {
     "sword": pygame.mixer.Sound("Sounds/slice.wav"),
@@ -26,6 +27,9 @@ def generate_starting_cards() -> List:
     cards.append(Card({"damage_all": 2}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     cards.append(Card({"damage_all": 2}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     cards.append(Card({"damage_all": 4}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
     cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
     cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
     cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))

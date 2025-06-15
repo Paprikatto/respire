@@ -76,6 +76,13 @@ class Enemy(Entity):
         )
         self.add_child(widget)
         return widget
+    
+    def on_end_player_turn(self):
+        super().on_end_player_turn()
+        
+    def on_start_player_turn(self):
+        super().on_start_player_turn()
+        self.request_action()
         
         
 

@@ -1,5 +1,6 @@
 from Button import Button
 from Enemy import Enemy
+from Player import Player
 from Scene import Scene
 import globals
 from Text import Text
@@ -53,13 +54,21 @@ class BattleScene(Scene):
     
     def end_player_turn(self):
         for e in self.enemies:
-            e.perform_action()
+            e.on_end_player_turn()
+            e.perform_action() # TODO: odpalanie każdej akcji po kolei
+            
+        if isinstance(globals.player, Player):
+            globals.player.on_end_player_turn()
+        
         self.start_player_turn()
     
     def start_player_turn(self):
         for e in self.enemies:
-            e.request_action()
-        globals.player.energy = globals.player.max_energy
+            e.on_start_player_turn()
+        
+        if isinstance(globals.player, Player):
+            globals.player.on_start_player_turn()
+            
         self.update_energy_text()
         
     def check_enemies_dead(self):

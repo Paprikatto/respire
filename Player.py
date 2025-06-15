@@ -38,7 +38,12 @@ class Player(Entity):
             self.image = self._idle_animation[int(self._current_frame)]
             self.scale = (5, 5)
 
-
-
     def animate(self):
         self._is_idle = True
+
+    def on_end_player_turn(self):
+        super().on_end_player_turn()
+
+    def on_start_player_turn(self):
+        super().on_start_player_turn()
+        self.energy = self.max_energy
