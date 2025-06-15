@@ -151,8 +151,9 @@ class Card(GameObject):
             globals.deck.used(self.hand_index)
             
     def on_click(self):
-        globals.pointing_start = self.global_position
-        globals.pointing = True
+        if self._hand_index != -3:  # if card is not reward card
+            globals.pointing_start = self.global_position
+            globals.pointing = True
         globals.card = self
     def on_hover_enter(self):
         super().on_hover_enter()
