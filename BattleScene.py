@@ -22,6 +22,10 @@ class BattleScene(Scene):
     ENEMY_POSITIONS = ((globals.WIDTH // 10 * 5, globals.HEIGHT // 10 * 5 ), (globals.WIDTH // 10 * 7, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 18, globals.HEIGHT // 10 * 4))
     def __init__(self, player, enemies: list):
         super().__init__()
+        import pygame
+        self.background_image_path = "Sprites/battle_background.png"
+        self.background_surface = pygame.image.load(self.background_image_path)
+        self.background_surface = pygame.transform.scale(self.background_surface, (globals.WIDTH, globals.HEIGHT))
         self.energy_text: Text = create_energy_text()
         self.update_energy_text()
         self.add_object(self.energy_text)
@@ -46,6 +50,7 @@ class BattleScene(Scene):
         self.start_player_turn()
 
     def render(self, screen):
+        screen.blit(self.background_surface, (0, 0))
         super().render(screen)
         Deck.get_instance().render(screen)
         
