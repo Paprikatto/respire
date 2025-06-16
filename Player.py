@@ -32,7 +32,7 @@ class Player(Entity):
     def update(self):
         super().update()
         if self._is_idle:
-            self._current_frame += 0.01
+            self._current_frame += 0.015
             if self._current_frame >= len(self._animation_list["idle"]):
                 self._current_frame = 0
             self.image = self._idle_animation[int(self._current_frame)]

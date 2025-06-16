@@ -18,7 +18,7 @@ class SkeletonSword(Enemy):
 
     def update(self):
         super().update()
-        self._current_frame += 0.01
+        self._current_frame += 0.015
         if self._current_frame >= len(self._animation_list):
             self._current_frame = 0
         self.image = self._animation_list[int(self._current_frame)]
@@ -42,7 +42,7 @@ class SkeletonShield(Enemy):
 
     def update(self):
         super().update()
-        self._current_frame += 0.01
+        self._current_frame += 0.015
         if self._current_frame >= len(self._animation_list):
             self._current_frame = 0
         self.image = self._animation_list[int(self._current_frame)]
@@ -66,7 +66,7 @@ class Shadow(Enemy):
 
     def update(self):
         super().update()
-        self._current_frame += 0.01
+        self._current_frame += 0.015
         if self._current_frame >= len(self._animation_list):
             self._current_frame = 0
         self.image = self._animation_list[int(self._current_frame)]
