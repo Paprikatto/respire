@@ -21,7 +21,7 @@ class DeathScene(Scene):
         )
         self.survived_text = Text(
             position=(globals.WIDTH // 2, globals.HEIGHT // 4 + 60),
-            text=f"You survived': {globals.scene_manager.battle_index+1} battles",
+            text=f"You survived': {globals.scene_manager.battle_index} battles",
             font_size=20,
             color=(255, 255, 255),
         )
