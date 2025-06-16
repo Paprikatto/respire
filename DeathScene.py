@@ -3,6 +3,7 @@ import globals
 from GameObject import GameObject
 from Text import Text
 from Button import Button
+from SaveManager import SaveManager
 import pygame
 
 class DeathScene(Scene):
@@ -19,9 +20,15 @@ class DeathScene(Scene):
             color=(255, 0, 0)
         )
         battles_survived = globals.scene_manager.battle_index+1
-        self.record_text = Text(
+        self.survived_text = Text(
             position=(globals.WIDTH // 2, globals.HEIGHT // 4 + 60),
             text=f"You survived': {battles_survived} battles",
+            font_size=20,
+            color=(255, 255, 255),
+        )
+        self.current_record = Text(
+            position=(globals.WIDTH // 2, globals.HEIGHT // 4 + 100),
+            text=f"Current Record: {SaveManager.get_instance().read('battle_index')} battles",
             font_size=20,
             color=(255, 255, 255),
         )
@@ -39,7 +46,8 @@ class DeathScene(Scene):
         self.add_object(self.background)
         self.add_object(self.title)
         self.add_object(self.quit_button)
-        self.add_object(self.record_text)
+        self.add_object(self.survived_text)
+        self.add_object(self.current_record)
 
 
 
