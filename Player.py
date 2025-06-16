@@ -1,5 +1,5 @@
 import pygame.mixer
-
+import globals
 from Entity import Entity
 from Deck import CARD_SOUNDS
 class Player(Entity):
@@ -29,6 +29,8 @@ class Player(Entity):
     def lose_health(self, value):
         super().lose_health(value)
         self.damage_sound.play()
+        if self._current_health <= 0:
+            self.on_death()
     def update(self):
         super().update()
         if self._is_idle:
@@ -50,4 +52,4 @@ class Player(Entity):
     
     def on_death(self):
         from SceneManager import SceneManager
-        SceneManager.get_instance().show_game_over_screen()
+        SceneManager.get_instance().on_player_death()

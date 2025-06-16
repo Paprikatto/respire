@@ -1,5 +1,7 @@
 import random
 import globals
+from Deck import Deck
+from DeathScene import DeathScene
 from MainMenu import MainMenu
 from RewardScene import RewardScene
 from SaveManager import SaveManager
@@ -8,6 +10,9 @@ from Scene import Scene
 from Text import Text
 from enemies import *
 from typing import Type, Optional
+from Player import Player
+
+
 
 class SceneManager:
     _instance: Optional["SceneManager"] = None
@@ -58,13 +63,8 @@ class SceneManager:
         
     def start_battle(self):
         self.current_scene = self.create_battle_scene()
-        
-    def show_game_over_screen(self):
-        self.current_scene = self._create_game_over_scene()
-        
-    def _create_game_over_scene(self):
-        scene = Scene()
-        scene.add_object(Text(
-            text="Game Over"
-        ))
-        return scene
+
+    def on_player_death(self):
+        self.current_scene = DeathScene()
+        self.battle_index = -1
+
