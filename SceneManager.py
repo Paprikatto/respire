@@ -4,6 +4,7 @@ from BattleScene import BattleScene
 from Deck import Deck
 from MainMenu import MainMenu
 from RewardScene import RewardScene
+from SaveManager import SaveManager
 from enemies import *
 
 
@@ -13,6 +14,7 @@ class SceneManager:
         if globals.scene_manager is None:
             globals.scene_manager = self
         globals.current_scene = MainMenu()
+        SaveManager.get_instance().do_something()
         
     def create_battle_scene(self) -> BattleScene:
         self.battle_index += 1
