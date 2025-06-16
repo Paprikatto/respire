@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Type
 
 import pygame
 
@@ -39,11 +39,23 @@ def generate_starting_cards() -> List:
 
 
 class Deck:
+    _instance: Optional["Deck"] = None
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Deck, cls).__new__(cls)
+        return cls._instance
+        
     def __init__(self) -> None:
         self._deck = generate_starting_cards()
         self._hand = []
         self.draw(5)
         self._used_cards = []
+        
+    @classmethod
+    def get_instance(cls: Type["Deck"]) -> "Deck":
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
         
     def add_card(self, card: Card):
         card.hand_index = -1

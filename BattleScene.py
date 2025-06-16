@@ -1,4 +1,5 @@
 from Button import Button
+from Deck import Deck
 from Enemy import Enemy
 from Player import Player
 from Scene import Scene
@@ -46,9 +47,8 @@ class BattleScene(Scene):
 
     def render(self, screen):
         super().render(screen)
-        if globals.deck is not None:
-            globals.deck.render(screen)
-
+        Deck.get_instance().render(screen)
+        
     def update_energy_text(self):
         self.energy_text.text = f"Energy: {globals.player.energy}/{globals.player.max_energy}"
     

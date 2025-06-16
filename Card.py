@@ -123,6 +123,7 @@ class Card(GameObject):
         print(f"using {self.actions} on {target}")
         # perform actions
         for action in self.actions.keys():
+            from Deck import Deck
             if target is None:
                 break
             match action:
@@ -138,18 +139,17 @@ class Card(GameObject):
                             enemy.lose_health(self.actions[action])
                 case "vulnerable":
                     target.add_vulnerable(self.actions[action])
-                case "heal":
-                    target.heal(self.actions[action])
+                # case "heal":
+                #     target.heal(self.actions[action])
                 case "draw":
-                    globals.deck.draw(self.actions[action])
+                    Deck.get_instance().draw(self.actions[action])
                 # case "upgrade":
                 #     globals.deck.upgrade_hand(self.actions[action])
                 case _:
                     raise ValueError(f"Unknown action: {action}")
-        if globals.deck is not None:
-            globals.deck.used(self.hand_index)
-            
+        Deck.get_instance().used(self.hand_index)
     def on_click(self):
+        from Deck import Deck
         from RewardScene import RewardScene
         from SceneManager import SceneManager
         if self._hand_index != -3:  # if card is not reward card
@@ -157,7 +157,7 @@ class Card(GameObject):
             globals.pointing = True
         else:
             if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
-                globals.deck.add_card(self)
+                Deck.get_instance().add_card(self)
                 globals.scene_manager.start_battle()
         globals.card = self
         
@@ -166,12 +166,10 @@ class Card(GameObject):
     def on_hover_enter(self):
         super().on_hover_enter()
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
-        self.animation_speed = 0.2
         
     def on_hover_exit(self):
         super().on_hover_exit()
         self._target_position += Vector2(0, Card.HOVER_Y_OFFSET)
-        self.animation_speed = 1
     
     def generate_text(self):
         from Text import Text

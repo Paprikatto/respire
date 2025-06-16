@@ -46,8 +46,6 @@ if not pygame.mixer.get_init():
 pygame.mixer.music.load("Sounds/bg_music.mp3")
 pygame.mixer.music.play(loops=-1)
 pygame.mixer.music.set_volume(0.2)
-globals.deck = Deck()
-SaveManager()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
