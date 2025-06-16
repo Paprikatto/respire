@@ -155,9 +155,13 @@ class Card(GameObject):
         if self._hand_index != -3:  # if card is not reward card
             globals.pointing_start = self.global_position
             globals.pointing = True
+        else:
+            if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
+                globals.deck.add_card(self)
+                globals.scene_manager.start_battle()
         globals.card = self
-        if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
-            globals.scene_manager.start_battle()
+        
+       
         
     def on_hover_enter(self):
         super().on_hover_enter()

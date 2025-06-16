@@ -44,6 +44,10 @@ class Deck:
         self._hand = []
         self.draw(5)
         self._used_cards = []
+        
+    def add_card(self, card: Card):
+        card.hand_index = -1
+        self._deck.append(card)
 
     #draw {amount} cards from deck to hand
     def draw(self, amount):
