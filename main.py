@@ -7,6 +7,7 @@ from RewardScene import RewardScene
 import globals
 import warnings
 
+from SaveManager import SaveManager
 from SceneManager import SceneManager
 
 warnings.filterwarnings("ignore")
@@ -39,17 +40,16 @@ def setup_scene():
     return scene
 
 pygame.init()
+# load music
 if not pygame.mixer.get_init():
     pygame.mixer.init()
 pygame.mixer.music.load("Sounds/bg_music.mp3")
 pygame.mixer.music.play(loops=-1)
 pygame.mixer.music.set_volume(0.2)
-globals.deck = Deck()
 screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
 running = True
-# globals.current_scene = setup_scene()
 globals.scene_manager = SceneManager()
 
 while running:

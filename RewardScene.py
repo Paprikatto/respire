@@ -2,6 +2,7 @@ from Card import Card
 from Deck import Deck
 from Text import Text
 from pygame.math import Vector2
+from GameObject import GameObject
 from Scene import Scene
 import globals
 import random
@@ -11,8 +12,6 @@ class RewardScene(Scene):
     def __init__(self):
         super().__init__()
         self.background_color = (0, 0, 0)
-        if isinstance(globals.deck, Deck):
-            self.deck = globals.deck
         self.reward_text = Text(
             position=(globals.WIDTH // 2, globals.HEIGHT // 4),
             text="Choose your reward",
@@ -45,17 +44,6 @@ class RewardScene(Scene):
             reward_card.global_position = positions[i]  # Ustawienie pozycji kart
             reward_card._target_position = positions[i] # Ustawienie pozycji docelowej kart (target taki sam jak pozycja, aby nie było animacji)
 
-            def on_click(new_card_data=card_data):
-                new_card = Card(
-                    new_card_data["actions"],
-                    new_card_data["energy_cost"],
-                    new_card_data["use_on_player"],
-                    new_card_data["image_path"],
-                    pygame.mixer.Sound(new_card_data["sound_path"])
-                )
-                self.deck.deck.append(new_card)
-
-            reward_card.on_click = on_click
             self.add_object(reward_card)
             self.reward_cards.append(reward_card)
 

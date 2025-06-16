@@ -1,6 +1,8 @@
 from argparse import ArgumentError
 
 import pygame.transform
+from networkx.classes import selfloop_edges
+
 import globals
 
 from Entity import Entity
@@ -35,13 +37,6 @@ class ActionsWidget(GameObject):
         self.number_widget.text = value
 
 
-def get_stat(array: list[int], index: int) -> int:
-    if index < 0:
-        raise ValueError("index must be higher or equal 0")
-    if index >= len(array):
-        return array[-1]
-    else:
-        return array[index]
 
 
 class Enemy(Entity):
@@ -109,6 +104,15 @@ class Enemy(Entity):
         if isinstance(globals.scene_manager, SceneManager):
             return globals.scene_manager.battle_index
         return -1
+    
+    def get_stat(self ,array: list[int]) -> int:
+        index = self.get_battle_index()
+        if index < 0:
+            raise ValueError("index must be higher or equal 0")
+        if index >= len(array):
+            return array[-1]
+        else:
+            return array[index]
         
 
         
