@@ -46,7 +46,7 @@ class SceneManager:
     def on_battle_win(self):
         globals.current_scene = self.create_reward_scene()
         if SaveManager.get_instance().read("battle_index") is None or SaveManager.get_instance().read("battle_index") < self.battle_index:
-            SaveManager.get_instance().save("battle_index", self.battle_index)
+            SaveManager.get_instance().save("battle_index", self.battle_index+1)
         
     def start_battle(self):
         globals.current_scene = self.create_battle_scene()
