@@ -1,5 +1,7 @@
 from Scene import Scene
 from Button import Button
+from Text import Text
+from SaveManager import SaveManager
 from GameObject import GameObject
 from Player import Player
 from enemies import *
@@ -41,10 +43,17 @@ class MainMenu(Scene):
             font_color=(255, 255, 255),
             on_click= self.quit_game
         )
+        self.record_text = Text(
+            position=(globals.WIDTH - 100, globals.HEIGHT - 25),
+            text=f"Best Score: {SaveManager.get_instance().read('battle_index')}",
+            font_size=20,
+            color=(255, 255, 255),
+        )
         self.add_object(self.background)
         self.add_object(self.title)
         self.add_object(self.start_button)
         self.add_object(self.quit_button)
+        self.add_object(self.record_text)
         if globals.player is None:
             globals.player = Player(80,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
 
