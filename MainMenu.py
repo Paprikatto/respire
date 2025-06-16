@@ -55,7 +55,7 @@ class MainMenu(Scene):
         self.add_object(self.quit_button)
         self.add_object(self.record_text)
         if globals.player is None:
-            globals.player = Player(80,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
+            globals.player = Player(10,  position=(globals.WIDTH // 2 - 300, globals.HEIGHT // 2 + 100))
 
     @staticmethod
     def start_game():

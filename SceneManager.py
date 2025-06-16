@@ -2,10 +2,13 @@ import random
 import globals
 from BattleScene import BattleScene
 from Deck import Deck
+from DeathScene import DeathScene
 from MainMenu import MainMenu
 from RewardScene import RewardScene
 from SaveManager import SaveManager
 from enemies import *
+from Player import Player
+
 
 
 class SceneManager:
@@ -47,3 +50,8 @@ class SceneManager:
         
     def start_battle(self):
         globals.current_scene = self.create_battle_scene()
+
+    def on_player_death(self):
+        globals.current_scene = DeathScene()
+        self.battle_index = -1
+
