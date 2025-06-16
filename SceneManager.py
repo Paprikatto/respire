@@ -53,5 +53,4 @@ class SceneManager:
 
     def on_player_death(self):
         globals.current_scene = DeathScene()
-        self.battle_index = -1
 
