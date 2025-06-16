@@ -19,10 +19,9 @@ class DeathScene(Scene):
             font_size=50,
             color=(255, 0, 0)
         )
-        battles_survived = globals.scene_manager.battle_index+1
         self.survived_text = Text(
             position=(globals.WIDTH // 2, globals.HEIGHT // 4 + 60),
-            text=f"You survived': {battles_survived} battles",
+            text=f"You survived': {globals.scene_manager.battle_index+1} battles",
             font_size=20,
             color=(255, 255, 255),
         )
