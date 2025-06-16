@@ -1,5 +1,3 @@
-from Card import Card
-
 # List of all cards in the game
 
 CARDS_DATA = [

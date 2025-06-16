@@ -7,37 +7,9 @@ from RewardScene import RewardScene
 import globals
 import warnings
 
-from SaveManager import SaveManager
 from SceneManager import SceneManager
 
 warnings.filterwarnings("ignore")
-
-from Button import Button
-
-#ta funkcja będzie usunięta ale na razie testuję
-"""def setup_scene():
-    # Initialize the scene
-    player = Player("Player", 100, 10)
-    player.scale = (5, 5)  
-    enemy = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
-    enemy2 = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
-    enemy3 = Enemy("Goblin", 50, 5, image_path="Sprites/werewolf-idle1.png")
-    enemy.scale = (5, 5)  
-    enemy2.scale = (5, 5)  
-    enemy3.scale = (5, 5)  
-    scene = BattleScene(player, [enemy, enemy2, enemy3])
-    # Add button
-    button = Button((100, 100), 50, 200, background_color=(0, 255, 0), button_text="Attack", font_size=20, font_color=(0, 0, 0), font_path="Fonts/Minecraft.ttf")
-    scene.add_object(button)
-
-
-    return scene """
-
-#Sprawdzam czy main menu działa
-def setup_scene():
-    # Initialize the scene
-    scene = MainMenu()
-    return scene
 
 pygame.init()
 # load music

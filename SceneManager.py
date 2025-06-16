@@ -1,13 +1,11 @@
 import random
 import globals
 from BattleScene import BattleScene
-from Deck import Deck
 from DeathScene import DeathScene
 from MainMenu import MainMenu
 from RewardScene import RewardScene
 from SaveManager import SaveManager
 from enemies import *
-from Player import Player
 
 
 

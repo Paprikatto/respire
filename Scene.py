@@ -1,6 +1,5 @@
 from GameObject import GameObject
 
-
 class Scene:
     def __init__(self):
         self._game_objects = []

@@ -1,8 +1,4 @@
-from argparse import ArgumentError
-
 import pygame.transform
-from networkx.classes import selfloop_edges
-
 import globals
 
 from Entity import Entity

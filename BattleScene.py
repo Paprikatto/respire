@@ -5,7 +5,6 @@ from Player import Player
 from Scene import Scene
 import globals
 from Text import Text
-from fix_png import fix_png_profiles
 
 
 def create_energy_text():

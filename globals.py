@@ -1,6 +1,5 @@
 import interfaces
 
-
 WIDTH = 1600
 HEIGHT = 900
 player = None

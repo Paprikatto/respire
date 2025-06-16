@@ -4,7 +4,6 @@ from Text import Text
 from SaveManager import SaveManager
 from GameObject import GameObject
 from Player import Player
-from enemies import *
 import globals
 import pygame
 

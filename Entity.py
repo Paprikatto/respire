@@ -1,13 +1,10 @@
 import abc
 
-from scipy.spatial.transform import Slerp
-
 from Animation import Animation
 from Button import Button
 from GameObject import GameObject
 from ProgressBar import ProgressBar
 from Text import Text
-
 
 class Entity(abc.ABC, GameObject):
 
