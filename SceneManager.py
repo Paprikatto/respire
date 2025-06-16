@@ -1,16 +1,13 @@
 import random
 import globals
-from Deck import Deck
 from DeathScene import DeathScene
 from MainMenu import MainMenu
 from RewardScene import RewardScene
 from SaveManager import SaveManager
 from BattleScene import BattleScene
 from Scene import Scene
-from Text import Text
 from enemies import *
 from typing import Type, Optional
-from Player import Player
 
 
 
@@ -62,7 +59,8 @@ class SceneManager:
             SaveManager.get_instance().save("battle_index", self.battle_index)
         
     def start_battle(self):
-        self.current_scene = self.create_battle_scene()
+        scene = self.create_battle_scene()
+        self.current_scene = scene
 
     def on_player_death(self):
         self.current_scene = DeathScene()

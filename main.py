@@ -1,11 +1,8 @@
 import pygame
 from Card import Card
 from Entity import Entity
-from MainMenu import MainMenu
 import globals
 import warnings
-
-from SaveManager import SaveManager
 from SceneManager import SceneManager
 
 warnings.filterwarnings("ignore")

@@ -41,5 +41,3 @@ class SaveManager:
     def read(self, name: str):
         return self.data.get(name, None)
     
-    def do_something(self):
-        print("do something")
