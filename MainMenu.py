@@ -19,6 +19,7 @@ class MainMenu(Scene):
             width=globals.WIDTH,
             image="Sprites/respire_background.png"
         )
+        self.background.scale = (1.5, 1.5)
         self.title = GameObject(image="Sprites/respire_logo.png", position=(globals.WIDTH // 2, globals.HEIGHT // 4))
         self.start_button = Button(
             position=(globals.WIDTH // 2, globals.HEIGHT // 2 - 25),
