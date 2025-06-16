@@ -2,7 +2,6 @@ import pygame
 
 import globals
 import utils
-from Button import Button
 from Entity import Entity
 from GameObject import GameObject
 from pygame.math import Vector2
@@ -104,6 +103,8 @@ class Card(GameObject):
             self.global_position = self._target_position
 
     def use(self, target: Entity):
+        from SceneManager import SceneManager
+        from Deck import Deck
         from BattleScene import BattleScene
         from Enemy import Enemy
         from Player import Player
@@ -115,15 +116,14 @@ class Card(GameObject):
             return
         globals.player.energy -= self.energy_cost
         # update energy text
-        if isinstance(globals.current_scene, BattleScene):
-            globals.current_scene.update_energy_text()
+        if isinstance(SceneManager.get_instance().current_scene, BattleScene):
+            SceneManager.get_instance().current_scene.update_energy_text()
         if hasattr(self.sound, "play"):
             self.sound.play()
         
         print(f"using {self.actions} on {target}")
         # perform actions
         for action in self.actions.keys():
-            from Deck import Deck
             if target is None:
                 break
             match action:
@@ -134,8 +134,8 @@ class Card(GameObject):
                 case "add_player_energy":
                     globals.player.add_energy(self.actions[action])
                 case "damage_all":
-                    if isinstance(globals.current_scene, BattleScene):
-                        for enemy in globals.current_scene.enemies:
+                    if isinstance(SceneManager.get_instance().current_scene, BattleScene):
+                        for enemy in SceneManager.get_instance().current_scene.enemies:
                             enemy.lose_health(self.actions[action])
                 case "vulnerable":
                     target.add_vulnerable(self.actions[action])
@@ -156,9 +156,9 @@ class Card(GameObject):
             globals.pointing_start = self.global_position
             globals.pointing = True
         else:
-            if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
+            if isinstance(SceneManager.get_instance().current_scene, RewardScene):
                 Deck.get_instance().add_card(self)
-                globals.scene_manager.start_battle()
+                SceneManager.get_instance().start_battle()
         globals.card = self
         
        
@@ -202,6 +202,7 @@ class Card(GameObject):
             texts.append(Text((0, Card.FONT_SIZE * i), l, color=(0,0,0), font_size=Card.FONT_SIZE,font_name="Fonts/Minecraft.ttf"))
         return texts
     def create_energy_widget(self):
+        from Button import Button
         widget = Button((0, 0), 20, 20,
                         text=f"{self.energy_cost}",
                         font_size=Card.FONT_SIZE,

@@ -47,3 +47,7 @@ class Player(Entity):
     def on_start_player_turn(self):
         super().on_start_player_turn()
         self.energy = self.max_energy
+    
+    def on_death(self):
+        from SceneManager import SceneManager
+        SceneManager.get_instance().show_game_over_screen()

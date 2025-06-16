@@ -94,16 +94,16 @@ class Enemy(Entity):
         self.request_action()
         
     def on_death(self):
+        from SceneManager import SceneManager
         from BattleScene import BattleScene
         super().on_death()
-        if isinstance(globals.current_scene, BattleScene):
-            globals.current_scene.check_enemies_dead()
+        if isinstance(SceneManager.get_instance().current_scene, BattleScene):
+            SceneManager.get_instance().current_scene.check_enemies_dead()
+            
             
     def get_battle_index(self) -> int:
         from SceneManager import SceneManager
-        if isinstance(globals.scene_manager, SceneManager):
-            return globals.scene_manager.battle_index
-        return -1
+        return SceneManager.get_instance().battle_index
     
     def get_stat(self ,array: list[int]) -> int:
         index = self.get_battle_index()

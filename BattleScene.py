@@ -1,11 +1,9 @@
-from Button import Button
 from Deck import Deck
 from Enemy import Enemy
 from Player import Player
 from Scene import Scene
 import globals
 from Text import Text
-from fix_png import fix_png_profiles
 
 
 def create_energy_text():
@@ -21,6 +19,7 @@ def create_energy_text():
 class BattleScene(Scene):
     ENEMY_POSITIONS = ((globals.WIDTH // 10 * 5, globals.HEIGHT // 10 * 5 ), (globals.WIDTH // 10 * 7, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 18, globals.HEIGHT // 10 * 4))
     def __init__(self, player, enemies: list):
+        from Button import Button
         super().__init__()
         self.energy_text: Text = create_energy_text()
         self.update_energy_text()
@@ -76,5 +75,4 @@ class BattleScene(Scene):
         for e in self.enemies:
             if not e.dead:
                 return
-        if isinstance(globals.scene_manager, SceneManager):
-            globals.scene_manager.on_battle_win()
+        SceneManager.get_instance().on_battle_win()

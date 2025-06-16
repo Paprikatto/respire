@@ -127,11 +127,12 @@ class GameObject(pygame.sprite.Sprite):
 
 
     def update(self):
+        from SceneManager import SceneManager
         # check if collides with mouse
         if self.check_hover:
             coll = self.check_collision(globals.mouse_position)
             if coll:
-                globals.current_scene.hovered_item = self
+                SceneManager.get_instance().current_scene.hovered_item = self
 
     def on_hover_enter(self):
         pass

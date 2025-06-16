@@ -1,18 +1,14 @@
 from Scene import Scene
-from Button import Button
-from Text import Text
 from SaveManager import SaveManager
-from GameObject import GameObject
-from Player import Player
-from enemies import *
 import globals
 import pygame
 
-from enemies import SkeletonSword
-
-
 class MainMenu(Scene):
     def __init__(self):
+        from Player import Player
+        from GameObject import GameObject
+        from Text import Text
+        from Button import Button
         super().__init__()
         self.background_color = (0, 0, 0)
         self.background = Button(
@@ -60,16 +56,7 @@ class MainMenu(Scene):
     @staticmethod
     def start_game():
         from SceneManager import SceneManager
-        if isinstance(globals.scene_manager, SceneManager):
-            globals.scene_manager.start_battle()
-            return
-        from BattleScene import BattleScene
-        from RewardScene import RewardScene
-        # if not hasattr(globals, "enemies") or globals.enemies is None:
-        #     globals.enemies = [SkeletonSword(), SkeletonShield(), Shadow()]
-        # globals.current_scene = BattleScene(globals.player, globals.enemies)
-        # globals.current_scene.add_object(globals.player)
-        globals.current_scene = RewardScene()
+        SceneManager.get_instance().start_battle()
 
     @staticmethod
     def quit_game():

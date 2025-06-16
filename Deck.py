@@ -46,6 +46,8 @@ class Deck:
         return cls._instance
         
     def __init__(self) -> None:
+        from SceneManager import SceneManager
+        self.sm = SceneManager()
         self._deck = generate_starting_cards()
         self._hand = []
         self.draw(5)
@@ -102,8 +104,8 @@ class Deck:
                 card.render(screen)
                 card.update()
         # Render hovered card second time to display it on top of others
-        if isinstance(globals.current_scene.hovered_item, Card):
-            globals.current_scene.hovered_item.render(screen)
+        if isinstance(self.sm.get_instance().current_scene.hovered_item, Card):
+            self.sm.get_instance().current_scene.hovered_item.render(screen)
 
     @property
     def deck(self):

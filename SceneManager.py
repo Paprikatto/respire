@@ -1,21 +1,32 @@
 import random
 import globals
-from BattleScene import BattleScene
-from Deck import Deck
 from MainMenu import MainMenu
 from RewardScene import RewardScene
 from SaveManager import SaveManager
+from BattleScene import BattleScene
+from Scene import Scene
+from Text import Text
 from enemies import *
-
+from typing import Type, Optional
 
 class SceneManager:
+    _instance: Optional["SceneManager"] = None
+    
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(SceneManager, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self):
         self.battle_index: int = -1
-        if globals.scene_manager is None:
-            globals.scene_manager = self
-        globals.current_scene = MainMenu()
-        SaveManager.get_instance().do_something()
-        
+        self.current_scene: Scene = MainMenu()
+
+    @classmethod
+    def get_instance(cls: Type["SceneManager"]) -> "SceneManager":
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+    
     def create_battle_scene(self) -> BattleScene:
         self.battle_index += 1
         # after 2 fights we fight 3 enemies instead of 2
@@ -41,9 +52,19 @@ class SceneManager:
         return RewardScene()
     
     def on_battle_win(self):
-        globals.current_scene = self.create_reward_scene()
+        self.current_scene = self.create_reward_scene()
         if SaveManager.get_instance().read("battle_index") is None or SaveManager.get_instance().read("battle_index") < self.battle_index:
             SaveManager.get_instance().save("battle_index", self.battle_index)
         
     def start_battle(self):
-        globals.current_scene = self.create_battle_scene()
+        self.current_scene = self.create_battle_scene()
+        
+    def show_game_over_screen(self):
+        self.current_scene = self._create_game_over_scene()
+        
+    def _create_game_over_scene(self):
+        scene = Scene()
+        scene.add_object(Text(
+            text="Game Over"
+        ))
+        return scene

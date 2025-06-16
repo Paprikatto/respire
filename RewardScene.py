@@ -1,8 +1,6 @@
 from Card import Card
-from Deck import Deck
 from Text import Text
 from pygame.math import Vector2
-from GameObject import GameObject
 from Scene import Scene
 import globals
 import random
