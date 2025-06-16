@@ -10,7 +10,8 @@ if not pygame.mixer.get_init():
     pygame.mixer.init()
 CARD_IMAGES = {
     "sword": pygame.image.load("Sprites/card-sword.png"),
-    "shield": pygame.image.load("Sprites/card-shield.png")
+    "shield": pygame.image.load("Sprites/card-shield.png"),
+    "vulnerable": pygame.image.load("Sprites/card-vulnerable.png")
 }
 CARD_SOUNDS = {
     "sword": pygame.mixer.Sound("Sounds/slice.wav"),
@@ -21,18 +22,14 @@ def generate_starting_cards() -> List:
     cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
     cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
-    # cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"damage": 5}, 2, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"damage": 5}, 3, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"damage": 5}, 4, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"damage": 5}, 5, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"vulnerable": 2}, 1, False, CARD_IMAGES["shield"])),
-    # cards.append(Card({"vulnerable": 2}, 2, False, CARD_IMAGES["shield"]))
-    # cards.append(Card({"vulnerable": 2}, 3, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"vulnerable": 2}, 4, False, CARD_IMAGES["sword"]))
-    # cards.append(Card({"vulnerable": 2}, 5, False, CARD_IMAGES["sword"]))
+    cards.append(Card({"damage": 5}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage": 11}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage_all": 2}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage_all": 2}, 1, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"damage_all": 4}, 2, False, CARD_IMAGES["sword"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
+    cards.append(Card({"vulnerable": 3}, 1, False, CARD_IMAGES["vulnerable"], CARD_SOUNDS["sword"]))
     cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
     cards.append(Card({"shield_player": 5}, 2, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
     cards.append(Card({"shield_player": 5}, 1, True, CARD_IMAGES["shield"], CARD_SOUNDS["shield"]))
@@ -47,6 +44,10 @@ class Deck:
         self._hand = []
         self.draw(5)
         self._used_cards = []
+        
+    def add_card(self, card: Card):
+        card.hand_index = -1
+        self._deck.append(card)
 
     #draw {amount} cards from deck to hand
     def draw(self, amount):

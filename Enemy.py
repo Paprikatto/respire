@@ -1,3 +1,5 @@
+from argparse import ArgumentError
+
 import pygame.transform
 import globals
 
@@ -6,8 +8,8 @@ from GameObject import GameObject
 from Text import Text
 import random
 ACTION_IMAGES = {
-    "damage": pygame.image.load("Sprites/card-sword.png"),
-    "shield": pygame.image.load("Sprites/card-shield.png")
+    "damage": pygame.image.load("Sprites/sword-icon.png"),
+    "shield": pygame.image.load("Sprites/shield-icon.png")
 }
 class EnemyAction:
     def __init__(self, name: str, value: int, weight: int):
@@ -18,6 +20,7 @@ class EnemyAction:
 class ActionsWidget(GameObject):
     def __init__(self, position: tuple[int, int]):
         super().__init__()
+        self.position = position
         self.number_widget = Text(
             position = (-20, 20),
         )
@@ -31,6 +34,16 @@ class ActionsWidget(GameObject):
     def number(self, value):
         self.number_widget.text = value
 
+
+def get_stat(array: list[int], index: int) -> int:
+    if index < 0:
+        raise ValueError("index must be higher or equal 0")
+    if index >= len(array):
+        return array[-1]
+    else:
+        return array[index]
+
+
 class Enemy(Entity):
     """Class representing an enemy in the game."""
     def __init__(self, max_health, shield, position=(0, 0), image=None, hp_bar_offset: tuple[int, int] = (0, 100)):
@@ -42,6 +55,7 @@ class Enemy(Entity):
         self.actions: list[str] = []
         self.actions_widget: ActionsWidget = self.create_actions_widget()
         self.actions_widget.visible = False
+        self.battle_index = self.get_battle_index()
         
     def set_actions(self, value: list[EnemyAction]):
         for a in value:
@@ -55,7 +69,7 @@ class Enemy(Entity):
             raise ValueError(f"no actions on {self.__class__.__name__}")
         action = self.actions[random.randint(0, len(self.actions) - 1)]
         self.actions_widget.image = ACTION_IMAGES[action]
-        self.actions_widget.scale = (2, 2)
+        self.actions_widget.scale = (1, 1)
         self.actions_widget.number = str(self.actions_values[action])
         self.actions_widget.visible = True
         self.current_action = action
@@ -72,11 +86,29 @@ class Enemy(Entity):
     
     def create_actions_widget(self) -> ActionsWidget:
         widget = ActionsWidget(
-            position=(self.hp_bar_offset[0], -self.hp_bar_offset[1] - 50)
+            position=(self.hp_bar_offset[0], -self.hp_bar_offset[1])
         )
         self.add_child(widget)
         return widget
+    
+    def on_end_player_turn(self):
+        super().on_end_player_turn()
         
+    def on_start_player_turn(self):
+        super().on_start_player_turn()
+        self.request_action()
+        
+    def on_death(self):
+        from BattleScene import BattleScene
+        super().on_death()
+        if isinstance(globals.current_scene, BattleScene):
+            globals.current_scene.check_enemies_dead()
+            
+    def get_battle_index(self) -> int:
+        from SceneManager import SceneManager
+        if isinstance(globals.scene_manager, SceneManager):
+            return globals.scene_manager.battle_index
+        return -1
         
 
         

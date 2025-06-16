@@ -1,5 +1,6 @@
 from Button import Button
 from Enemy import Enemy
+from Player import Player
 from Scene import Scene
 import globals
 from Text import Text
@@ -17,7 +18,7 @@ def create_energy_text():
 
 
 class BattleScene(Scene):
-    ENEMY_POSITIONS = ((globals.WIDTH // 10 * 6, globals.HEIGHT // 10 * 6 ), (globals.WIDTH // 10 * 6, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 17, globals.HEIGHT // 10 * 4))
+    ENEMY_POSITIONS = ((globals.WIDTH // 10 * 5, globals.HEIGHT // 10 * 5 ), (globals.WIDTH // 10 * 7, globals.HEIGHT // 10 * 2), (globals.WIDTH // 20 * 18, globals.HEIGHT // 10 * 4))
     def __init__(self, player, enemies: list):
         super().__init__()
         self.energy_text: Text = create_energy_text()
@@ -53,17 +54,27 @@ class BattleScene(Scene):
     
     def end_player_turn(self):
         for e in self.enemies:
-            e.perform_action()
+            e.on_end_player_turn()
+            e.perform_action() # TODO: odpalanie każdej akcji po kolei
+            
+        if isinstance(globals.player, Player):
+            globals.player.on_end_player_turn()
+        
         self.start_player_turn()
     
     def start_player_turn(self):
         for e in self.enemies:
-            e.request_action()
-        globals.player.energy = globals.player.max_energy
+            e.on_start_player_turn()
+        
+        if isinstance(globals.player, Player):
+            globals.player.on_start_player_turn()
+            
         self.update_energy_text()
         
     def check_enemies_dead(self):
+        from SceneManager import SceneManager
         for e in self.enemies:
             if not e.dead:
                 return
-        raise RuntimeError("Implement new scene")
+        if isinstance(globals.scene_manager, SceneManager):
+            globals.scene_manager.on_battle_win()

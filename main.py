@@ -6,6 +6,9 @@ from MainMenu import MainMenu
 from RewardScene import RewardScene
 import globals
 import warnings
+
+from SceneManager import SceneManager
+
 warnings.filterwarnings("ignore")
 
 from Button import Button
@@ -46,7 +49,8 @@ screen = pygame.display.set_mode((globals.WIDTH, globals.HEIGHT))
 pygame.display.set_caption("Respire")
 clock = pygame.time.Clock()
 running = True
-globals.current_scene = setup_scene()
+# globals.current_scene = setup_scene()
+globals.scene_manager = SceneManager()
 
 while running:
     # poll for events

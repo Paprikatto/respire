@@ -9,7 +9,6 @@ from pygame.math import Vector2
 
 
 
-
 class Card(GameObject):
     ANIM_SPEED = 6
     HAND_WIDTH = round(globals.WIDTH * 0.5)
@@ -151,10 +150,19 @@ class Card(GameObject):
             globals.deck.used(self.hand_index)
             
     def on_click(self):
+        from RewardScene import RewardScene
+        from SceneManager import SceneManager
         if self._hand_index != -3:  # if card is not reward card
             globals.pointing_start = self.global_position
             globals.pointing = True
+        else:
+            if isinstance(globals.current_scene, RewardScene) and isinstance(globals.scene_manager, SceneManager):
+                globals.deck.add_card(self)
+                globals.scene_manager.start_battle()
         globals.card = self
+        
+       
+        
     def on_hover_enter(self):
         super().on_hover_enter()
         self._target_position -= Vector2(0, Card.HOVER_Y_OFFSET)
@@ -178,9 +186,9 @@ class Card(GameObject):
                 case "add_player_energy":
                     str += f"Gain {value} energy\n"
                 case "damage_all":
-                    str += f"Deal {value} damage to all enemies\n"
+                    str += f"Deal {value} damage\nto all enemies\n"
                 case "vulnerable":
-                    str += f"Apply {value} vulnerable\n"
+                    str += f"Apply vulnerable\nfor {value} rounds\n"
                 case "heal":
                     str += f"Heal {value}\n"
                 case "draw":
