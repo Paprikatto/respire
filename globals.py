@@ -10,7 +10,7 @@ main_font = None
 enemies = None
 pointing: bool = False
 pointing_start: tuple[int, int] = (0, 0)
-card: interfaces.Card | None = None  # Placeholder for Card class, to be set in main.py
+card: interfaces.Card | None = None  
 default_font = "Fonts/Minecraft.ttf"
 scene_manager = None
 

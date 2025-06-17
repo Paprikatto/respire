@@ -1,15 +1,9 @@
 import pygame
 from Card import Card
-from Deck import Deck
 from Entity import Entity
-from MainMenu import MainMenu
-from RewardScene import RewardScene
 import globals
-import warnings
-
 from SceneManager import SceneManager
 
-warnings.filterwarnings("ignore")
 
 pygame.init()
 # load music
